@@ -65,3 +65,34 @@ if (contactForm) {
         }, 3000);
     });
 }
+
+// 스크롤 시 요소 나타나기 (Intersection Observer 활용)
+const observerOptions = {
+    threshold: 0.1 // 요소가 10% 정도 보일 때 실행
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            // 포트폴리오 그리드 내부의 아이템들인 경우 순차적으로 등장
+            if (entry.target.classList.contains('logo-grid')) {
+                const items = entry.target.querySelectorAll('.logo-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('is-visible');
+                    }, index * 150); // 0.15초씩 간격을 두고 등장
+                });
+            } else {
+                // 일반 요소들은 즉시 등장
+                entry.target.classList.add('is-visible');
+            }
+            // 한 번 나타난 후에는 관찰 중단 (성능 최적화)
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// 관찰할 요소들 등록
+document.querySelectorAll('.reveal-init, .logo-grid').forEach((el) => {
+    observer.observe(el);
+});
