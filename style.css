@@ -26,11 +26,23 @@ body {
   top: 0;
   width: 100%;
   height: 92px; /* Hero 계산에 사용 */
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid #eee;
+  background: transparent; /*처음엔 투명*/
+  border-bottom: none;
+  transition: all 0.3s ease;
   z-index: 1000;
 }
+/* 스크롤 시 추가될 클래스 */
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.95); /* 흰색 배경 등장 */
+  height: 70px; /* 스크롤 시 높이를 살짝 줄여서 날렵하게 (선택사항) */
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
 
+/* 스크롤 시 로고와 메뉴 색상 조정 (필요한 경우) */
+.header.scrolled .nav-menu a {
+  color: #333;
+}
 .nav {
   max-width: 1200px;
   height: 100%;
@@ -181,8 +193,8 @@ body {
 ====================================================== */
 .hero {
   position: relative;
-  height: calc(100vh - 92px); /* header 제외 */
-  margin-top: 92px;          /* header 아래로 밀기 */
+  height: 100vh;
+  margin-top: 0;
   overflow: hidden;
 }
 

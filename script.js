@@ -13,6 +13,15 @@ window.addEventListener('scroll', () => {
         header.style.background = 'rgba(255, 255, 255, 0.95)';
     }
 });
+/* 스크롤 시 헤더에 클래스 추가 */
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
 
 /* ======================================================
    2. Scroll Reveal Animation (실무 필수!)
