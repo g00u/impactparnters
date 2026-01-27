@@ -436,20 +436,48 @@ body {
 }
 
 .logo-item {
-    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px; /* 높이를 조금 조절해서 더 정갈하게 */
     background: #fff;
     border: 1px solid #f0f0f0;
-    transition: var(--transition);
+    border-radius: 12px;
+    
+    /* 텍스트 스타일링 */
+    color: #333;
+    text-decoration: none; /* 밑줄 제거 */
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+    padding: 20px;
+    word-break: keep-all; /* 한글 줄바꿈 예쁘게 */
+    
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     filter: grayscale(100%);
     opacity: 0.7;
 }
 
+/* 마우스를 올렸을 때 효과 극대화 */
 .logo-item:hover {
     filter: grayscale(0%);
     opacity: 1;
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    box-shadow: 0 20px 40px rgba(0, 54, 194, 0.1); /* 포인트 컬러 느낌의 그림자 */
     border-color: var(--primary-color);
+    color: var(--primary-color); /* 글자색도 살짝 변경 */
+}
+
+.logo-item.no-link {
+    cursor: default; /* 손가락 모양이 안 나오게 함 */
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+.logo-item.no-link:hover {
+    transform: none; /* 들썩이는 효과 제거 */
+    box-shadow: none;
+    border-color: #f0f0f0; /* 테두리 색 유지 */
+    color: #333;           /* 글자색 유지 */
 }
 /* ======================================================
    8. News
