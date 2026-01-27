@@ -1,64 +1,57 @@
 /* ======================================================
-   1. Header Scroll Effect
-   - 스크롤 시 헤더에 그림자를 주어 콘텐츠와 분리되게 합니다.
+    1. Header Scroll Effect
+    - 상단 네비게이션 투명도 및 높이 조절
 ====================================================== */
 const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.05)';
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-    } else {
-        header.style.boxShadow = 'none';
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-    }
-});
-/* 스크롤 시 헤더에 클래스 추가 */
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
+    if (window.scrollY > 10) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
+        // 인라인 스타일 초기화 (CSS 클래스 우선)
+        header.style.boxShadow = ''; 
+        header.style.background = ''; 
     }
 });
 
 /* ======================================================
-   2. Scroll Reveal Animation (실무 필수!)
-   - 스크롤을 내릴 때 섹션들이 스르륵 나타나는 효과입니다.
+    2. Scroll Reveal Animation (통합 버전)
+    - 요소들이 스크롤에 따라 순차적으로 스르륵 나타남
 ====================================================== */
-const observerOptions = {
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            // CSS의 .is-visible 클래스를 추가하여 애니메이션 실행
+            entry.target.classList.add('is-visible');
         }
     });
-}, observerOptions);
+}, { threshold: 0.1 });
 
-// 애니메이션을 적용할 요소들 선택
-document.querySelectorAll('.section, .hero-inner').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(30px)';
-    section.style.transition = 'all 0.8s ease-out';
-    observer.observe(section);
+// 애니메이션을 적용할 모든 요소 선택
+// .section 내부의 직계 자식들과 hero-inner 내부 요소들, 그리고 카드 아이템들
+const elementsToReveal = document.querySelectorAll('.section > *, .process span, .logo-item, .hero-inner > *');
+
+elementsToReveal.forEach((el, index) => {
+    // 1. 초기 CSS 클래스 부여
+    el.classList.add('reveal-init');
+    
+    // 2. 순차적 느낌을 위해 style 속성으로 delay 부여 (선택 사항)
+    // index % 5를 통해 5개 단위로 끊어서 0.1초씩 늦게 나오게 함
+    el.style.transitionDelay = `${(index % 5) * 0.1}s`;
+    
+    // 3. 관찰 시작
+    revealObserver.observe(el);
 });
 
 /* ======================================================
-   3. Form Submission Handling
-   - IR 제출 버튼 클릭 시 간단한 피드백을 줍니다.
+    3. Form Submission Handling
 ====================================================== */
 const contactForm = document.querySelector('.contact-form');
 
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        // 실제 전송 로직 대신 성공 메시지 (나중에 서버 연결 시 수정 가능)
         const btn = contactForm.querySelector('button');
         const originalText = btn.innerText;
         
@@ -67,7 +60,7 @@ if (contactForm) {
         
         setTimeout(() => {
             btn.innerText = originalText;
-            btn.style.background = '#5885f7';
+            btn.style.background = ''; // 기존 CSS로 복구
             contactForm.reset();
         }, 3000);
     });

@@ -1,6 +1,17 @@
 /* ======================================================
    1. Reset & Base
 ====================================================== */
+/* ======================================================
+   업그레이드 포인트 1: 타이포그래피 & 컬러 변수
+====================================================== */
+:root {
+    --primary-color: #0036c2;
+    --navy-dark: #1A237E;
+    --gray-bg: #f8f9fa;
+    --text-main: #111;
+    --text-muted: #666;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 * {
   margin: 0;
   padding: 0;
@@ -21,23 +32,33 @@ body {
    2. Header (Fixed Navigation)
    - 고정 헤더이므로 높이를 명확히 정의
 ====================================================== */
+/* 2. Header (Fixed Navigation) */
 .header {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 92px; /* Hero 계산에 사용 */
-  background: transparent; /*처음엔 투명*/
-  border-bottom: none;
-  transition: all 0.3s ease;
+  height: 92px;
+  background: transparent; /* 초기값 확실히 투명하게 */
+  border-bottom: 1px solid transparent; /* 선도 처음엔 투명하게 */
+  transition: all 0.4s ease; 
   z-index: 1000;
+  display: flex; /* 내부 nav 중앙 정렬 보조 */
+  align-items: center;
 }
-/* 스크롤 시 추가될 클래스 */
+
+/* 스크롤 시 추가될 클래스 - 속성 앞에 .header를 붙여 우선순위 확보 */
 .header.scrolled {
-  background: rgba(255, 255, 255, 0.95); /* 흰색 배경 등장 */
-  height: 70px; /* 스크롤 시 높이를 살짝 줄여서 날렵하게 (선택사항) */
+  background: rgba(255, 255, 255, 0.98); 
+  height: 80px; 
   border-bottom: 1px solid #eee;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
+
+/* ★ 추가 팁: 첫 화면에서 메뉴 글씨가 사진 때문에 안 보인다면? */
+/* 초기 상태(투명할 때) 메뉴 색상을 흰색으로 하고 싶다면 아래 주석을 푸세요 */
+/* .header:not(.scrolled) .nav-menu a { color: #fff; }
+.header:not(.scrolled) .logo { color: #fff; }
+*/
 
 /* 스크롤 시 로고와 메뉴 색상 조정 (필요한 경우) */
 .header.scrolled .nav-menu a {
@@ -47,7 +68,7 @@ body {
   max-width: 1200px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,14 +78,19 @@ body {
 ============================= */
 
 .logo {
-  font-size:35px;
+  font-size:32px;
   font-weight: 900;
   letter-spacing: -0.5px;
   cursor: default;
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .logo-i {
   color: #B71C1C;
+  font-style: italic;
+  margin-right: -1px;
 }
 .logo-mpact {
   color: #1A237E;
@@ -85,7 +111,7 @@ body {
   display: flex;
   list-style: none;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
 }
 
 .nav-menu a {
@@ -202,23 +228,27 @@ body {
 .hero-inner {
     position: relative;
     z-index: 10;
-    padding: 0 100px;
+    padding: 0 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     height: 100%;
     width: 100%;
-    /* 그라데이션 범위를 50%까지 확장하여 글자 가독성 확보 */
+/* 배경 그라데이션을 더 자연스럽게 (왼쪽에서 오른쪽으로) */
     background: linear-gradient(
-        to right,
+        90deg,
         rgba(255, 255, 255, 1) 0%, 
-        rgba(255, 255, 255, 0.75) 40%, 
+        rgba(255, 255, 255, 0.9) 35%, 
         rgba(255, 255, 255, 0) 100%
     );
     max-width: none;
 }
-
+.hero-title {
+    font-size: 68px; /* 더 과감하게 */
+    letter-spacing: -2px;
+    word-break: keep-all; /* 한글 줄바꿈 최적화 */
+}
 /* 텍스트가 너무 오른쪽까지 퍼지지 않게 안쪽 요소들만 너비 제한 */
 .hero-title, .hero-desc, .hero-actions, .hero-label {
   max-width: 600px;
@@ -255,6 +285,22 @@ body {
   display: flex;
   gap: 16px;
   align-items: center;
+}
+
+
+.text-highlight {
+    position: relative;
+    display: inline-block;
+}
+.text-highlight::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: rgba(0, 54, 194, 0.1);
+    z-index: -1;
 }
 
 /* ----- Hero Image Area ----- */
@@ -324,27 +370,51 @@ body {
    6. Investment Process
 ====================================================== */
 .process {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  /*flex-wrap: wrap;*/
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 50px;
+    position: relative;
 }
 
 .process span {
-    padding: 10px 20px;
-    background: #fff;
-    border: 1px solid #5885f7; /* 테두리를 포인트 컬러로 */
-    color: #5885f7;
-    border-radius: 8px;
-    font-weight: 700;
+    position: relative;
+    padding: 30px 20px;
+    background: transparent;
+    border: none;
+    border-top: 2px solid #eee;
+    color: var(--text-muted);
+    text-align: center;
+    transition: var(--transition);
 }
 
-.process span:not(:last-child)::after {
-    content: "〉";
-    margin-left: 20px;
-    color: #ccc;
-    font-weight: 300;
+.process span::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: #ddd;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    transition: var(--transition);
 }
+
+.process span:hover {
+    color: var(--primary-color);
+    border-top-color: var(--primary-color);
+}
+
+.process span:hover::before {
+    background: var(--primary-color);
+    box-shadow: 0 0 0 5px rgba(0, 54, 194, 0.1);
+}
+
+/* 〉 화살표 제거 (세련된 라인형으로 대체됨) */
+.process span:not(:last-child)::after { display: none; }
+
+
 
 /* ======================================================
    7. Portfolio
@@ -356,17 +426,21 @@ body {
 }
 
 .logo-item {
-  height: 100px;
-  background: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #aaa;
-  font-weight: 600;
+    height: 160px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    transition: var(--transition);
+    filter: grayscale(100%);
+    opacity: 0.7;
 }
 
+.logo-item:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    border-color: var(--primary-color);
+}
 /* ======================================================
    8. News
 ====================================================== */
@@ -430,6 +504,23 @@ body {
   text-align: center;
   padding: 40px 24px;
   font-size: 14px;
+}
+
+/* ======================================================
+   12. Scroll Reveal Animation Styles (JS 연동)
+====================================================== */
+/* 처음에 보이지 않는 상태 */
+.reveal-init {
+    opacity: 0;
+    transform: translateY(30px); /* 20px보다 30px이 더 드라마틱합니다 */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform; /* 애니메이션 성능 최적화 */
+}
+
+/* 스크롤되어 나타날 때 상태 */
+.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 /* ======================================================
