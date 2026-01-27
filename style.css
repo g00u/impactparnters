@@ -438,17 +438,45 @@ body {
 }
 
 /* 섹션 헤더 (라벨 & 타이틀) 여백 확보 */
-#portfolio .section-label,
-#portfolio .section-subtitle {
+#portfolio .section-label
+{
+  
     padding: 0 60px;      /* 네비게이션과 동일한 60px 여백 */
     max-width: 1400px;    /* 텍스트는 너무 퍼지지 않게 가이드라인 설정 */
     margin-left: auto;
     margin-right: auto;
 }
 
+/* 상단 서브타이틀: 박스만큼 대담하게 */
 #portfolio .section-subtitle {
-    margin-bottom: 80px;
-    color: #fff;
+    margin-left: 100px;
+    font-size: 80px;      /* 박스 안의 글자(72px)보다 더 크게 설정 */
+    font-weight: 900;
+    color: #e973d9;
+    letter-spacing: -3px;
+    line-height: 1.1;
+    margin-bottom: 100px; /* 그리드와의 간격을 충분히 확보 */
+    text-transform: uppercase; /* 영문일 경우 대문자로 통일하면 더 멋집니다 */
+    position: relative;
+}
+
+/* 감각적인 포인트: 타이틀 옆에 작은 점이나 선 추가 (선택사항) */
+#portfolio .section-subtitle::after {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #e973d9; /* 포인트 컬러 점 */
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+/* 상단 라벨 도 조금 더 선명하게 */
+#portfolio .section-label {
+    font-size: 14px;
+    letter-spacing: 5px; /* 자간을 아주 넓게 */
+    color: #888;
+    margin-bottom: 24px;
 }
 
 /* 그리드 레이아웃 */
