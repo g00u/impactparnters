@@ -45,6 +45,21 @@ body {
   font-size:35px;
   font-weight: 900;
   letter-spacing: -0.5px;
+  cursor: default;
+}
+
+.logo-i {
+  color: #B71C1C;
+}
+.logo-mpact {
+  color: #1A237E;
+}
+.logo {
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.02);
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .nav-menu {
@@ -227,28 +242,25 @@ body {
 ====================================================== */
 .process {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  /*flex-wrap: wrap;*/
 }
 
 .process span {
-  padding: 10px 18px;
-  border-radius: 20px;
-  background: #fff;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  font-weight: 500;
-  position: relative;
-  padding-right: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #5885f7; /* 테두리를 포인트 컬러로 */
+    color: #5885f7;
+    border-radius: 8px;
+    font-weight: 700;
 }
+
 .process span:not(:last-child)::after {
-  content: "›";
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  color: #bbb;
+    content: "〉";
+    margin-left: 20px;
+    color: #ccc;
+    font-weight: 300;
 }
 
 /* ======================================================
