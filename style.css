@@ -1,0 +1,352 @@
+/* ======================================================
+   1. Reset & Base
+====================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #111;
+  line-height: 1.6;
+}
+
+/* ======================================================
+   2. Header (Fixed Navigation)
+   - 고정 헤더이므로 높이를 명확히 정의
+====================================================== */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 92px; /* Hero 계산에 사용 */
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eee;
+  z-index: 1000;
+}
+
+.nav {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size:35px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* ======================================================
+   3. Buttons (공통)
+====================================================== */
+.btn-primary {
+  padding: 12px 28px;
+  background: #5885f7;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #0036c2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(88, 133, 247, 0.3);
+}
+
+.btn-secondary {
+  padding: 12px 28px;
+  border: 2px solid #333;
+  border-radius: 24px;
+  color: #333;
+  background: transparent;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: #111;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ======================================================
+   4. Hero Section (Full Width with Overlay Text)
+   - 사진이 전체를 차지
+   - 텍스트가 사진 위에 오버레이
+====================================================== */
+.hero {
+  position: relative;
+  height: calc(100vh - 92px); /* header 제외 */
+  margin-top: 92px;          /* header 아래로 밀기 */
+}
+
+/* ----- Hero Text Area ----- */
+.hero-inner {
+  position: relative;
+  z-index: 10;
+  padding: 0 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85), transparent);
+  max-width: 600px;
+}
+
+.hero-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #5885f7;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 32px;
+  color: #111;
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.7;
+  max-width: 500px;
+  margin-bottom: 48px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* ----- Hero Image Area ----- */
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80")
+    center / cover no-repeat;
+  z-index: 1;
+}
+
+/* 이미지 톤 다운용 오버레이 */
+.hero-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* ======================================================
+   5. Section (공통 레이아웃)
+   - section은 full width
+   - 텍스트 가독성을 위해 max-width 제한
+====================================================== */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 140px 24px 120px;
+}
+
+.section-light {
+  background: #f7f8fa;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #0047ff;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.section-subtitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.section-desc {
+  font-size: 17px;
+  color: #555;
+  max-width: 700px;
+}
+
+/* ======================================================
+   6. Investment Process
+====================================================== */
+.process {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.process span {
+  padding: 10px 18px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ======================================================
+   7. Portfolio
+====================================================== */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+}
+
+.logo-item {
+  height: 100px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-weight: 600;
+}
+
+/* ======================================================
+   8. News
+====================================================== */
+.news-list {
+  list-style: none;
+  max-width: 800px;
+}
+
+.news-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 15px;
+}
+
+.news-date {
+  font-size: 13px;
+  color: #888;
+}
+
+/* ======================================================
+   9. Contact
+====================================================== */
+.contact-box {
+  max-width: 600px;
+}
+
+.contact-box h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.contact-form textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.contact-form button {
+  cursor: pointer;
+}
+
+/* ======================================================
+   10. Footer
+====================================================== */
+.footer {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 40px 24px;
+  font-size: 14px;
+}
+
+/* ======================================================
+   11. Responsive (Mobile)
+====================================================== */
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    min-height: 80vh;
+  }
+
+  .hero-inner {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9));
+    padding: 80px 24px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .nav-menu {
+    gap: 16px;
+  }
+}
