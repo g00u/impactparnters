@@ -1,51 +1,62 @@
 /* ======================================================
     1. Header Scroll Effect
-    - 상단 네비게이션 투명도 및 높이 조절
 ====================================================== */
 const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
+    // 스크롤이 10px 이상 내려가면 'scrolled' 클래스 추가
     if (window.scrollY > 10) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
-        // 인라인 스타일 초기화 (CSS 클래스 우선)
-        header.style.boxShadow = ''; 
-        header.style.background = ''; 
     }
 });
 
 /* ======================================================
-    2. Scroll Reveal Animation (통합 버전)
-    - 요소들이 스크롤에 따라 순차적으로 스르륵 나타남
+    2. Scroll Reveal Animation (통합 최적화)
 ====================================================== */
-const revealObserver = new IntersectionObserver((entries) => {
+// 요소가 화면에 나타나는지 관찰하는 '감시자' 설정
+const observerOptions = {
+    root: null,      // 브라우저 뷰포트 기준
+    threshold: 0.15  // 요소가 15% 정도 보일 때 애니메이션 시작
+};
+
+const revealCallback = (entries, observer) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            // CSS의 .is-visible 클래스를 추가하여 애니메이션 실행
+            // 1. 요소에 'is-visible' 클래스를 추가하여 CSS 애니메이션 실행
             entry.target.classList.add('is-visible');
+
+            // 2. 만약 포트폴리오 그리드라면 내부 아이템들을 시간차(Stagger)를 두고 등장시킴
+            if (entry.target.classList.contains('logo-grid')) {
+                const items = entry.target.querySelectorAll('.logo-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('is-visible');
+                    }, index * 100); // 0.1초 간격으로 순차적 등장
+                });
+            }
+
+            // 3. 한 번 나타난 요소는 다시 감시할 필요가 없으므로 관찰 종료 (성능 최적화)
+            observer.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1 });
+};
 
-// 애니메이션을 적용할 모든 요소 선택
-// .section 내부의 직계 자식들과 hero-inner 내부 요소들, 그리고 카드 아이템들
-const elementsToReveal = document.querySelectorAll('.section > *, .process span, .logo-item, .hero-inner > *');
+const observer = new IntersectionObserver(revealCallback, observerOptions);
 
-elementsToReveal.forEach((el, index) => {
-    // 1. 초기 CSS 클래스 부여
+// 감시할 대상들: 섹션 내 요소들, 프로세스 단계, 포트폴리오 그리드 및 아이템
+const elementsToWatch = document.querySelectorAll('.section > *, .process span, .logo-grid, .logo-item, .hero-inner > *');
+
+elementsToWatch.forEach((el) => {
+    // 초기 투명도 상태 클래스 추가 (CSS에서 정의된 .reveal-init)
     el.classList.add('reveal-init');
-    
-    // 2. 순차적 느낌을 위해 style 속성으로 delay 부여 (선택 사항)
-    // index % 5를 통해 5개 단위로 끊어서 0.1초씩 늦게 나오게 함
-    el.style.transitionDelay = `${(index % 5) * 0.1}s`;
-    
-    // 3. 관찰 시작
-    revealObserver.observe(el);
+    // 관찰 시작
+    observer.observe(el);
 });
 
 /* ======================================================
-    3. Form Submission Handling
+    3. Form Submission
 ====================================================== */
 const contactForm = document.querySelector('.contact-form');
 
@@ -60,39 +71,41 @@ if (contactForm) {
         
         setTimeout(() => {
             btn.innerText = originalText;
-            btn.style.background = ''; // 기존 CSS로 복구
+            btn.style.background = ''; 
             contactForm.reset();
         }, 3000);
     });
 }
 
-// 스크롤 시 요소 나타나기 (Intersection Observer 활용)
-const observerOptions = {
-    threshold: 0.1 // 요소가 10% 정도 보일 때 실행
-};
+/* ======================================================
+    4. Custom Cursor Logic
+====================================================== */
+const cursorDot = document.querySelector(".cursor-dot");
+const cursorOutline = document.querySelector(".cursor-outline");
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            // 포트폴리오 그리드 내부의 아이템들인 경우 순차적으로 등장
-            if (entry.target.classList.contains('logo-grid')) {
-                const items = entry.target.querySelectorAll('.logo-item');
-                items.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.classList.add('is-visible');
-                    }, index * 150); // 0.15초씩 간격을 두고 등장
-                });
-            } else {
-                // 일반 요소들은 즉시 등장
-                entry.target.classList.add('is-visible');
-            }
-            // 한 번 나타난 후에는 관찰 중단 (성능 최적화)
-            observer.unobserve(entry.target);
-        }
+window.addEventListener("mousemove", (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    // 점 커서는 즉시 따라오게
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+
+    // 외곽선 커서는 부드러운 애니메이션 효과
+    cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 500, fill: "forwards" });
+});
+
+// 클릭 가능한 요소에 호버했을 때 커서 확장 효과
+const interactiveElements = document.querySelectorAll("a, button, .logo-item");
+
+interactiveElements.forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+        document.body.classList.add("cursor-active");
     });
-}, observerOptions);
-
-// 관찰할 요소들 등록
-document.querySelectorAll('.reveal-init, .logo-grid').forEach((el) => {
-    observer.observe(el);
+    el.addEventListener("mouseleave", () => {
+        document.body.classList.remove("cursor-active");
+    });
 });

@@ -29,6 +29,43 @@ body {
 }
 
 /* ======================================================
+   Custom Cursor Style
+====================================================== */
+/* 기본 마우스 포인터 숨기기 (선택 사항) */
+body { cursor: none; }
+a, button, .logo-item { cursor: none; }
+
+.cursor-dot, .cursor-outline {
+    position: fixed;
+    top: 0; left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none; /* 마우스 이벤트를 방해하지 않음 */
+    transition: transform 0.1s ease-out, opacity 0.3s ease;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-color);
+    transition: all 0.2s ease-out;
+}
+
+/* 호버 시 커서 변화 */
+.cursor-active .cursor-outline {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: rgba(0, 54, 194, 0.1);
+    border-color: transparent;
+}
+
+/* ======================================================
    2. Header (Fixed Navigation)
    - 고정 헤더이므로 높이를 명확히 정의
 ====================================================== */
@@ -248,8 +285,8 @@ body {
 /* 배경 그라데이션을 더 자연스럽게 (왼쪽에서 오른쪽으로) */
     background: linear-gradient(
         90deg,
-        rgba(255, 255, 255, 1) 0%, 
-        rgba(255, 255, 255, 0.9) 35%, 
+        rgba(255, 255, 255, 0.95) 0%, 
+        rgba(255, 255, 255, 0.7) 40%, 
         rgba(255, 255, 255, 0) 100%
     );
     max-width: none;
@@ -305,12 +342,13 @@ body {
 .text-highlight::after {
     content: "";
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     left: 0;
     width: 100%;
-    height: 15px;
-    background: rgba(0, 54, 194, 0.1);
+    height: 25%;
+    background: rgba(0, 54, 194, 0.2);
     z-index: -1;
+    transition: width 1s ease-in-out;
 }
 
 /* ----- Hero Image Area ----- */
@@ -349,12 +387,12 @@ body {
 }
 
 .section-label {
-  font-size: 12px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 2px;
   color: #0047ff;
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .section-title {
@@ -365,6 +403,11 @@ body {
 }
 
 .section-subtitle {
+  color: #1A237E; /* 묵직한 네이비 */
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: initial;
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 32px;
@@ -403,9 +446,11 @@ body {
     position: absolute;
     top: -6px;
     left: 50%;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     background: #ddd;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px #ddd;
     border-radius: 50%;
     transform: translateX(-50%);
     transition: var(--transition);
@@ -419,6 +464,8 @@ body {
 .process span:hover::before {
     background: var(--primary-color);
     box-shadow: 0 0 0 5px rgba(0, 54, 194, 0.1);
+    transform: translateX(-50%) scale(1.5); /* 마우스 올리면 커지는 효과 */
+    
 }
 
 /* 〉 화살표 제거 (세련된 라인형으로 대체됨) */
@@ -427,148 +474,250 @@ body {
 
 
 /* ======================================================
-   7. Portfolio (Full-Width Typography Gallery)
+   7. Portfolio (Full-Width Asymmetric Gallery)
+   - 전체 화면을 활용한 대담한 타이포그래피 스타일
+   - 비대칭 그리드로 리듬감 있는 레이아웃 구현
 ====================================================== */
+
+/* [7-1] 섹션 기본 레이아웃 설정 */
 #portfolio.section {
-    max-width: none;      /* 전체 화면을 쓰기 위해 제한 해제 */
+    max-width: none;      /* 전체 화면을 쓰기 위해 좌우 제한 해제 */
     width: 100%;
-    padding: 160px 0 0 0; /* 하단 패딩은 그리드가 채우므로 0 */
-    background-color: #111;
-    margin: 0;            /* 중앙 정렬 해제 */
+    padding: 160px 0 0 0; /* 하단은 그리드가 채우므로 상단 여백만 확보 */
+    background-color: #ffffff;
+    margin: 0;
 }
 
-/* 섹션 헤더 (라벨 & 타이틀) 여백 확보 */
-#portfolio .section-label
-{
-  
-    padding: 0 60px;      /* 네비게이션과 동일한 60px 여백 */
-    max-width: 1400px;    /* 텍스트는 너무 퍼지지 않게 가이드라인 설정 */
+/* [7-2] 섹션 타이틀 및 라벨 (상단 텍스트 영역) */
+#portfolio .section-label {
+    padding: 0 60px;
+    max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
+    font-size: 14px;
+    letter-spacing: 5px; /* 자간을 넓혀 고급스러운 느낌 부여 */
+    color: #888;
+    margin-bottom: 24px;
 }
 
-/* 상단 서브타이틀: 박스만큼 대담하게 */
 #portfolio .section-subtitle {
-    margin-left: 100px;
-    font-size: 80px;      /* 박스 안의 글자(72px)보다 더 크게 설정 */
+    margin-left: 60px;   /* 라벨과 정렬 맞춤 */
+    font-size: 100px;
     font-weight: 900;
-    color: #e973d9;
+    /* 그라데이션 텍스트 적용 */
+    /* 실버-블루 그라데이션: 전문적이고 차가운 지성미 
+    background: linear-gradient(135deg, #1A237E 0%, #e7e7e9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+    margin-left: 60px;
+    font-size: 80px;
+    font-weight: 900;
+    color: #1A237E; /* 깊이 있는 네이비 */
     letter-spacing: -3px;
     line-height: 1.1;
-    margin-bottom: 100px; /* 그리드와의 간격을 충분히 확보 */
-    text-transform: uppercase; /* 영문일 경우 대문자로 통일하면 더 멋집니다 */
-    position: relative;
+    margin-bottom: 100px;
+    text-transform: uppercase;
+    letter-spacing: -3px;
+    line-height: 1.1;
+    margin-bottom: 80px;
+    text-transform: uppercase;
 }
 
-/* 감각적인 포인트: 타이틀 옆에 작은 점이나 선 추가 (선택사항) */
+/* 타이틀 옆 포인트 점 효과 */
 #portfolio .section-subtitle::after {
     content: "";
     display: inline-block;
     width: 12px;
     height: 12px;
-    background-color: #e973d9; /* 포인트 컬러 점 */
+    background-color: #d3ced2;
     border-radius: 50%;
     margin-left: 15px;
 }
 
-/* 상단 라벨 도 조금 더 선명하게 */
-#portfolio .section-label {
-    font-size: 14px;
-    letter-spacing: 5px; /* 자간을 아주 넓게 */
-    color: #888;
-    margin-bottom: 24px;
-}
-
-/* 그리드 레이아웃 */
+/* [7-3] 비대칭 그리드 시스템 */
 .logo-grid {
     display: grid;
-    /* 3열 배치를 기본으로 하되, 화면이 커지면 유연하게 대응 */
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 0;
-    background-color: #000;
-    border-top: 1px solid #222;
+    /* 기본 4열 구조로 설정 (비대칭 구현을 위해 4열이 가장 적합) */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1px;
+    background-color: #f0f0f0;
+    border-top: 1px solid #eee;
 }
 
+/* 개별 포트폴리오 아이템 기본 스타일 */
 .logo-item {
-    height: 450px;       /* 높이를 450px로 키워 더 웅장하게 */
-    background: #111;
+    grid-column: span 1;  /* 기본적으로 1칸 차지 */
+    height: 450px;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 50px;       /* 안쪽 여백을 더 넉넉히 */
+    padding: 50px;
     text-decoration: none;
-    border: 0.5px solid #222;
+    border: none;
     overflow: hidden;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    box-shadow: inset 0 0 0 2px #0036c2; /* 안쪽 테두리로 포인트 */
+    
+    /* JS 애니메이션을 위한 초기 상태 */
     opacity: 0;
     transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
 }
-/* 등장했을 때 상태 */
+
+/* 스크롤 시 나타나는 상태 */
 .logo-item.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* 이미지 속 거대한 타이포그래피 재현 */
+/* [7-4] 비대칭 리듬감 부여 (박스 크기 조절) */
+/* 1번째, 7번째... 아이템은 가로로 2칸 차지 */
+.logo-item:nth-child(6n+1) { 
+    grid-column: span 2; 
+} 
+/* 5번째, 11번째... 아이템도 가로로 2칸 차지 */
+.logo-item:nth-child(6n+5) { 
+    grid-column: span 2; 
+} 
+
+/* 짝수번째 아이템에 미세한 배경색 차이 부여 */
+.logo-item:nth-child(even) { 
+    background: #151515; 
+}
+
+/* [7-5] 내부 타이포그래피 스타일 */
 .brand-big-name {
-    font-size: 72px;     /* 글자가 박스에 꽉 차도록 설정 */
+    font-size: 72px;
     font-weight: 900;
-    line-height: 0.85;   /* 글자 사이를 좁혀 덩어리감 강조 */
-    color: #fff;
-    letter-spacing: -4px; /* 자간을 더 좁혀서 임팩트 부여 */
+    line-height: 0.85;
+    color: #111;
+    letter-spacing: -4px;
     text-transform: uppercase;
     transition: all 0.6s ease;
 }
 
+/* [7-4 수정] 카드별 텍스트 색상 다변화 */
+/* 3의 배수 아이템은 차분한 블루톤 */
+.logo-item:nth-child(3n) .brand-big-name {
+    background: linear-gradient(to bottom, #ffffff 0%, #4b77c4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* 짝수 아이템은 아까의 핑크/바이올렛 유지 */
+.logo-item:nth-child(even) .brand-big-name {
+    background: linear-gradient(to bottom, #fff 0%, #e9bbe3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .brand-info {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
+/* [7-5 수정] 통합 프리미엄 카테고리 디자인 */
 .category {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: #666;         /* 평소엔 은은하게 */
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;                /* 선과 글자 사이 간격 확대 */
+    padding: 8px 20px;        /* 태그 크기 확대 */
+    background: rgba(255, 255, 255, 0.03); /* 유리 질감 기초 */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;      /* 완전히 둥근 알약 모양으로 세련미 강조>50px */
+    
+    font-size: 13px;          /* 글자 크기 키움 (기존 11px -> 14px) */
     font-weight: 700;
+    color: #777;              /* 평상시 회색 */
     text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 20px;
+}
+
+/* 태그 앞의 다이내믹 라인 (포인트 컬러 적용) */
+.category::before {
+    content: "";
+    width: 15px;
+    height: 2px;
+    background: #444;         /* 평상시 어두운 선 */
+    transition: all 0.5s ease;
+}
+
+/* 호버 시 변화 (컬러: #0052FF - 신뢰감 있는 블루) */
+.logo-item:hover .category {
+    border-color: #0036ce;             /* 포인트 블루 테두리 */
+    color: #fff;                 
+    box-shadow: 0 0 20px rgba(0, 82, 255, 0.2); /* 은은한 네온 효과 */
+    transform: translateX(10px);       /* 오른쪽으로 살짝 이동하는 동적 효과 */
+}
+
+.logo-item:hover .category::before {
+    width: 30px;                       /* 선이 길어지며 강조 */
+    background: #0052FF;               /* 선 색상 변경 */
+}
+
+/* 한글 이름(kr-name)도 조화롭게 크기 조정 */
+.kr-name {
+    font-size: 18px;          /* 기존 15px -> 18px */
+    color: #555;
+    font-weight: 600;
+    margin-top: 5px;
 }
 
 .kr-name {
     font-size: 15px;
-    color: #444;         /* 한글 이름은 더 차분하게 */
+    color: #444;
     font-weight: 500;
 }
 
-/* Hover 인터랙션: 배경 반전 */
+/* [7-6] 인터랙션 (Hover 효과) */
 .logo-item:hover {
-    background: #fff;
-    z-index: 5;          /* 보더라인 위로 올라오게 */
+    background: #fff; /* 배경 반전 */
+    z-index: 5;
 }
 
 .logo-item:hover .brand-big-name {
     color: #000;
-    transform: translateY(-5px); /* 위로 살짝 이동 */
+    transform: translateY(-5px);
 }
 
 .logo-item:hover .category {
-    color: var(--primary-color); /* 포인트 컬러 활용 */
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: #fff;
 }
 
 .logo-item:hover .kr-name {
     color: #111;
 }
 
-/* 링크 없는 아이템 처리 */
-.logo-item.no-link {
-    cursor: default;
-    opacity: 0.6;
+/* [7-7] 반응형 설정 (모바일/태블릿) */
+@media (max-width: 1024px) {
+    .logo-grid { 
+        grid-template-columns: repeat(2, 1fr); /* 태블릿은 2열 */
+    }
+    .logo-item:nth-child(n) { 
+        grid-column: span 1; /* 모든 비대칭 해제하고 동일하게 배치 */
+    }
+    .brand-big-name {
+        font-size: 48px !important;
+    }
 }
-.logo-item.no-link:hover {
-    background: #111;   /* 반전 효과 제거 */
+
+@media (max-width: 768px) {
+    .logo-grid { 
+        grid-template-columns: 1fr; /* 모바일은 1열 */
+    }
+    .logo-item {
+        height: 350px;
+        padding: 40px;
+    }
 }
-.logo-item.no-link:hover .brand-big-name { color: #fff; transform: none; }
 
 
 /* ======================================================
