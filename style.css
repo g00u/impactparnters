@@ -658,7 +658,14 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 .logo-item::before {
     content: "";
     position: absolute;
-    inset: 0;
+    width: 50%;
+    height: 50%;
+    /* 2. 위치 설정 (inset: 0은 반드시 삭제하세요) */
+    top: 50%;
+    left: 50%;
+    
+    /* 3. 중앙으로 끌어올리기 (이게 없으면 시작점만 중앙이 됩니다) */
+    transform: translate(-50%, -50%);
     background-image: var(--bg-image); /* HTML에서 style로 이미지 경로 전달 */
     background-size: cover;
     background-position: center;
@@ -669,10 +676,11 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 
 .logo-item:hover::before {
     opacity: 0.15; /* 흐릿하게 이미지 노출 */
+    /* 호버할 때 살짝 커지게 */
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* 다크 카드 호버 시 예외 처리 (다크 테마 유지 시 주석 해제) */
-/* .logo-item:nth-child(even):hover { background: #1a1a1a; } */
+
 
 .logo-item:hover .brand-big-name {
     -webkit-text-fill-color: #111; /* 그라데이션 제거하고 블랙으로 */
@@ -689,6 +697,30 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 .logo-item:hover .category::before {
     width: 24px;
     background: var(--primary-color);
+}
+
+.kr-name {
+    display: block; /* 줄바꿈 확실히 */
+    font-size: 20px; /* 기존보다 2~4px 상향 */
+    font-weight: 700; /* 600에서 700으로 올려서 묵직하게 */
+    color: #444;
+    letter-spacing: -0.03em; /* 한글은 자간을 살짝 좁혀야 단단해 보임 */
+    margin-top: 8px;
+    transition: color 0.4s ease;
+}
+
+/* 다크 카드(짝수)에서의 kr-name */
+.logo-item:nth-child(even) .kr-name {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 호버 시 강조 효과 */
+.logo-item:hover .kr-name {
+    color: #000;
+}
+
+.logo-item:nth-child(even):hover .kr-name {
+    color: #000000;
 }
 
 /* [7-8] Responsive */
