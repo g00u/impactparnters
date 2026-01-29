@@ -721,26 +721,90 @@ a, button, .logo-item { cursor: none; }
 
 
 /* ======================================================
-   8. News
+   8. News Section (Minimal List)
 ====================================================== */
-.news-list {
-  list-style: none;
-  max-width: 800px;
+#news {
+    background-color: #fff;
+    padding: 160px 60px;
+    border-top: 1px solid #eee;
 }
 
-.news-list li {
-  display: flex;
-  justify-content: space-between;
-  padding: 14px 0;
-  border-bottom: 1px solid #e5e5e5;
-  font-size: 15px;
+.news-container {
+    max-width: 1200px;
+    margin: 80px auto 0;
+}
+
+.news-item {
+    display: flex;
+    align-items: center;
+    padding: 40px 0;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+    color: #111;
+}
+
+.news-meta {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .news-date {
-  font-size: 13px;
-  color: #888;
+    font-size: 14px;
+    color: #999;
+    font-weight: 500;
 }
 
+.news-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: #0036c2; /* 포인트 컬러 */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.news-title {
+    flex: 1;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+    padding-right: 40px;
+    transition: color 0.3s ease;
+}
+
+.news-arrow {
+    font-size: 28px;
+    color: #eee;
+    transition: all 0.4s ease;
+}
+
+/* Hover 효과 */
+.news-item:hover {
+    padding-left: 20px;
+}
+
+.news-item:hover .news-title {
+    color: #0036c2;
+}
+
+.news-item:hover .news-arrow {
+    color: #0036c2;
+    transform: translateX(10px);
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .news-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .news-meta { width: 100%; }
+    .news-title { font-size: 18px; padding-right: 0; }
+    .news-arrow { display: none; }
+}
 /* ======================================================
    9. Contact
 ====================================================== */
