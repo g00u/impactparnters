@@ -480,56 +480,38 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 
 /* ======================================================
    7. Portfolio (Full-Width Asymmetric Gallery)
-   - 전체 화면을 활용한 대담한 타이포그래피 스타일
-   - 비대칭 그리드로 리듬감 있는 레이아웃 구현
 ====================================================== */
 
-/* [7-1] 섹션 기본 레이아웃 설정 */
+/* [7-1] Section Container */
 #portfolio.section {
-    max-width: none;      /* 전체 화면을 쓰기 위해 좌우 제한 해제 */
+    max-width: none;
     width: 100%;
-    padding: 160px 0 0 0; /* 하단은 그리드가 채우므로 상단 여백만 확보 */
+    padding: 160px 0 0 0;
     background-color: #ffffff;
     margin: 0;
 }
 
-/* [7-2] 섹션 타이틀 및 라벨 (상단 텍스트 영역) */
+/* [7-2] Title & Label */
 #portfolio .section-label {
     padding: 0 60px;
     max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 24px;
     font-size: 14px;
-    letter-spacing: 5px; /* 자간을 넓혀 고급스러운 느낌 부여 */
+    letter-spacing: 5px;
     color: #888;
-    margin-bottom: 24px;
 }
 
 #portfolio .section-subtitle {
-    margin-left: 60px;   /* 라벨과 정렬 맞춤 */
-    font-size: 100px;
-    font-weight: 900;
-    /* 그라데이션 텍스트 적용 */
-    /* 실버-블루 그라데이션: 전문적이고 차가운 지성미 
-    background: linear-gradient(135deg, #1A237E 0%, #e7e7e9 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;*/
     margin-left: 60px;
     font-size: 80px;
     font-weight: 900;
-    color: #1A237E; /* 깊이 있는 네이비 */
-    letter-spacing: -3px;
-    line-height: 1.1;
-    margin-bottom: 100px;
-    text-transform: uppercase;
+    color: var(--navy-dark);
     letter-spacing: -3px;
     line-height: 1.1;
     margin-bottom: 80px;
     text-transform: uppercase;
 }
 
-/* 타이틀 옆 포인트 점 효과 */
 #portfolio .section-subtitle::after {
     content: "";
     display: inline-block;
@@ -540,58 +522,45 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     margin-left: 15px;
 }
 
-/* [7-3] 비대칭 그리드 시스템 */
+/* [7-3] Asymmetric Grid System */
 .logo-grid {
     display: grid;
-    /* 기본 4열 구조로 설정 (비대칭 구현을 위해 4열이 가장 적합) */
     grid-template-columns: repeat(4, 1fr); 
     gap: 1px;
-    background-color: #f0f0f0;
-    border-top: 1px solid #eee;
+    background-color: #eeeeee; /* 그리드 선 색상 */
+    border-top: 1px solid #eeeeee;
 }
 
-/* 개별 포트폴리오 아이템 기본 스타일 */
+/* Individual Portfolio Item */
 .logo-item {
-    grid-column: span 1;  /* 기본적으로 1칸 차지 */
-    height: 450px;
+    grid-column: span 1;
+    height: 480px; /* 가시성 확보를 위해 높이 소폭 상향 */
     background: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 50px;
     text-decoration: none;
-    border: none;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-    box-shadow: inset 0 0 0 2px #0036c2; /* 안쪽 테두리로 포인트 */
-    
-    /* JS 애니메이션을 위한 초기 상태 */
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), 
+                background 0.4s ease, 
+                z-index 0s;
     opacity: 0;
     transform: translateY(40px);
 }
 
-/* 스크롤 시 나타나는 상태 */
 .logo-item.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* [7-4] 비대칭 리듬감 부여 (박스 크기 조절) */
-/* 1번째, 7번째... 아이템은 가로로 2칸 차지 */
-.logo-item:nth-child(6n+1) { 
-    grid-column: span 2; 
-} 
-/* 5번째, 11번째... 아이템도 가로로 2칸 차지 */
+/* [7-4] Visual Rhythm (Asymmetric Span) */
+.logo-item:nth-child(6n+1),
 .logo-item:nth-child(6n+5) { 
     grid-column: span 2; 
 } 
 
-/* 짝수번째 아이템에 미세한 배경색 차이 부여 */
-.logo-item:nth-child(even) { 
-    background: #151515; 
-}
-
-/* [7-5] 내부 타이포그래피 스타일 */
+/* [7-5] Typography & Color Logic */
 .brand-big-name {
     font-size: 72px;
     font-weight: 900;
@@ -599,131 +568,102 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     color: #111;
     letter-spacing: -4px;
     text-transform: uppercase;
-    transition: all 0.6s ease;
+    transition: color 0.4s ease, transform 0.6s ease;
 }
 
-/* [7-4 수정] 카드별 텍스트 색상 다변화 */
-/* 3의 배수 아이템은 차분한 블루톤 */
-.logo-item:nth-child(3n) .brand-big-name {
-    background: linear-gradient(to bottom, #bfdef3 0%, #3574e0 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Dark Card Styling (Even items) */
+.logo-item:nth-child(even) { 
+    background: #111111; 
 }
 
-/* 짝수 아이템은 차분한 회색톤 */
 .logo-item:nth-child(even) .brand-big-name {
-    background: linear-gradient(to bottom, #fff 0%, #fcfcfc 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #999999 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.brand-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+.logo-item:nth-child(even) .kr-name {
+    color: rgba(255, 255, 255, 0.7);
 }
 
-/* [7-5 수정] 통합 프리미엄 카테고리 디자인 */
+/* Blue Accent Card (3rd items) */
+.logo-item:nth-child(3n):not(:nth-child(even)) .brand-big-name {
+    background: linear-gradient(to bottom, #bfdef3 0%, #0036c2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* [7-6] Category Tag */
 .category {
     display: inline-flex;
     align-items: center;
-    gap: 12px;                /* 선과 글자 사이 간격 확대 */
-    padding: 8px 20px;        /* 태그 크기 확대 */
-    background: rgba(255, 255, 255, 0.03); /* 유리 질감 기초 */
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;      /* 완전히 둥근 알약 모양으로 세련미 강조>50px */
-    
-    font-size: 13px;          /* 글자 크기 키움 (기존 11px -> 14px) */
+    gap: 12px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    font-size: 13px;
     font-weight: 700;
-    color: #777;              /* 평상시 회색 */
+    color: #777;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-bottom: 20px;
+    transition: all 0.4s ease;
 }
 
-/* 태그 앞의 다이내믹 라인 (포인트 컬러 적용) */
+.logo-item:nth-child(even) .category {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+}
+
 .category::before {
     content: "";
-    width: 15px;
+    width: 12px;
     height: 2px;
-    background: #444;         /* 평상시 어두운 선 */
-    transition: all 0.5s ease;
+    background: #ccc;
+    transition: width 0.4s ease, background 0.4s ease;
 }
 
-/* 호버 시 변화 (컬러: #0052FF - 신뢰감 있는 블루) */
-.logo-item:hover .category {
-    border-color: #0036ce;             /* 포인트 블루 테두리 */
-    color: #fff;                 
-    box-shadow: 0 0 20px rgba(0, 82, 255, 0.2); /* 은은한 네온 효과 */
-    transform: translateX(10px);       /* 오른쪽으로 살짝 이동하는 동적 효과 */
-}
-
-.logo-item:hover .category::before {
-    width: 30px;                       /* 선이 길어지며 강조 */
-    background: #0052FF;               /* 선 색상 변경 */
-}
-
-/* 한글 이름(kr-name)도 조화롭게 크기 조정 */
-.kr-name {
-    font-size: 18px;          /* 기존 15px -> 18px */
-    color: #555;
-    font-weight: 600;
-    margin-top: 5px;
-}
-
-.kr-name {
-    font-size: 15px;
-    color: #444;
-    font-weight: 500;
-}
-
-/* [7-6] 인터랙션 (Hover 효과) */
+/* [7-7] Interaction (Hover) */
 .logo-item:hover {
-    background: #fff; /* 배경 반전 */
-    z-index: 5;
+    z-index: 10;
+    transform: scale(1.02) translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+    background: #ffffff; /* 다크 카드도 호버 시 화이트 반전 원할 경우 유지 */
 }
+
+/* 다크 카드 호버 시 예외 처리 (다크 테마 유지 시 주석 해제) */
+/* .logo-item:nth-child(even):hover { background: #1a1a1a; } */
 
 .logo-item:hover .brand-big-name {
-    color: #000;
-    transform: translateY(-5px);
+    -webkit-text-fill-color: #111; /* 그라데이션 제거하고 블랙으로 */
 }
 
 .logo-item:hover .category {
     border-color: var(--primary-color);
-    background-color: var(--primary-color);
-    color: #fff;
+    color: var(--primary-color);
+    transform: translateX(5px);
 }
 
-.logo-item:hover .kr-name {
-    color: #111;
+.logo-item:hover .category::before {
+    width: 24px;
+    background: var(--primary-color);
 }
 
-/* [7-7] 반응형 설정 (모바일/태블릿) */
+/* [7-8] Responsive */
 @media (max-width: 1024px) {
-    .logo-grid { 
-        grid-template-columns: repeat(2, 1fr); /* 태블릿은 2열 */
-    }
-    .logo-item:nth-child(n) { 
-        grid-column: span 1; /* 모든 비대칭 해제하고 동일하게 배치 */
-    }
-    .brand-big-name {
-        font-size: 48px !important;
-    }
+    .logo-grid { grid-template-columns: repeat(2, 1fr); }
+    .logo-item:nth-child(n) { grid-column: span 1; height: 400px; }
+    .brand-big-name { font-size: 56px; }
 }
 
 @media (max-width: 768px) {
-    .logo-grid { 
-        grid-template-columns: 1fr; /* 모바일은 1열 */
-    }
-    .logo-item {
-        height: 350px;
-        padding: 40px;
-    }
+    .logo-grid { grid-template-columns: 1fr; }
+    .logo-item { padding: 40px; }
+    .brand-big-name { font-size: 48px; }
 }
-
 
 /* ======================================================
    8. News Section (Minimal List)
