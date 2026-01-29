@@ -98,6 +98,24 @@ window.addEventListener("mousemove", (e) => {
     }, { duration: 500, fill: "forwards" });
 });
 
+const cursor = document.querySelector('.cursor-outline');
+const logoItems = document.querySelectorAll('.logo-item');
+
+logoItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-active');
+        // 필요 시 카드별로 다른 문구 세팅 가능   
+        cursor.style.setProperty('--cursor-text', '"DETAIL"'); 
+    });
+    
+    item.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-active');
+    });
+});
+
+
+
+
 // 클릭 가능한 요소에 호버했을 때 커서 확장 효과
 const interactiveElements = document.querySelectorAll("a, button, .logo-item");
 

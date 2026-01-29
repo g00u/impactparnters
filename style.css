@@ -64,6 +64,24 @@ a, button, .logo-item { cursor: none; }
     background-color: rgba(0, 54, 194, 0.1);
     border-color: transparent;
 }
+
+/* 커스텀 커서 내 글자 스타일 */
+.cursor-outline::after {
+    content: "VIEW"; /* 기본값 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8px;
+    font-weight: 800;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-active .cursor-outline::after {
+    opacity: 1;
+}
+
 /* 폼 요소나 슬라이더 화살표 등에도 커서 효과 적용 */
 input, textarea, button, .swiper-button-next, .swiper-button-prev {
     cursor: none;
@@ -569,6 +587,8 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     letter-spacing: -4px;
     text-transform: uppercase;
     transition: color 0.4s ease, transform 0.6s ease;
+    background-size: 200% auto !important; /* 애니메이션 공간 확보 */
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Dark Card Styling (Even items) */
@@ -634,11 +654,30 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     background: #ffffff; /* 다크 카드도 호버 시 화이트 반전 원할 경우 유지 */
 }
 
+/* 배경 오버레이 레이어 (가상 요소) */
+.logo-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg-image); /* HTML에서 style로 이미지 경로 전달 */
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.5s ease;
+}
+
+.logo-item:hover::before {
+    opacity: 0.15; /* 흐릿하게 이미지 노출 */
+}
+
 /* 다크 카드 호버 시 예외 처리 (다크 테마 유지 시 주석 해제) */
 /* .logo-item:nth-child(even):hover { background: #1a1a1a; } */
 
 .logo-item:hover .brand-big-name {
     -webkit-text-fill-color: #111; /* 그라데이션 제거하고 블랙으로 */
+    background-position: right center !important; /* 호버 시 그라데이션 이동 */
+    transform: translateY(-5px);
 }
 
 .logo-item:hover .category {
