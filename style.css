@@ -117,10 +117,13 @@ a, button, .logo-item { cursor: none; }
 ============================= */
 
 .logo {
-  font-size:32px;
+  font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.5px;
-  cursor: default;
+
+  /* [추가] a 태그 특유의 파란색/밑줄 제거 */
+  text-decoration: none;
+  color: inherit; 
   display: flex;
   align-items: center;
   line-height: 1;
@@ -199,7 +202,6 @@ a, button, .logo-item { cursor: none; }
   border-radius: 24px;
   font-weight: 600;
   font-size: 15px;
-  cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
 }
