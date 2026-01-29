@@ -600,7 +600,7 @@ a, button, .logo-item { cursor: none; }
 /* [7-4 수정] 카드별 텍스트 색상 다변화 */
 /* 3의 배수 아이템은 차분한 블루톤 */
 .logo-item:nth-child(3n) .brand-big-name {
-    background: linear-gradient(to bottom, #ffffff 0%, #4b77c4 100%);
+    background: linear-gradient(to bottom, #bfdef3 0%, #3574e0 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -608,7 +608,7 @@ a, button, .logo-item { cursor: none; }
 
 /* 짝수 아이템은 아까의 핑크/바이올렛 유지 */
 .logo-item:nth-child(even) .brand-big-name {
-    background: linear-gradient(to bottom, #fff 0%, #e9bbe3 100%);
+    background: linear-gradient(to bottom, #fff 0%, #fcfcfc 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
