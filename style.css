@@ -725,77 +725,117 @@ a, button, .logo-item { cursor: none; }
 /* ======================================================
    8. News Section (Minimal List)
 ====================================================== */
+/* ======================================================
+   News Slider Section
+====================================================== */
 #news {
-    background-color: #fff;
-    padding: 160px 60px;
-    border-top: 1px solid #eee;
+  background-color: #fff;
+  padding: 120px 0;
+  overflow: hidden; /* 슬라이더가 삐져나가지 않게 */
 }
 
-.news-container {
-    max-width: 1200px;
-    margin: 80px auto 0;
+/* 슬라이더 컨테이너 레이아웃 */
+.news-slider {
+  width: 100%;
+  max-width: 1300px; /* 양옆 여백 확보 */
+  margin: 60px auto 0;
+  padding: 20px 50px 80px; /* 화살표 공간 확보 */
+}
+.news-slider {
+  position: relative; /* 화살표 배치의 기준점 */
+  padding: 20px 60px 80px !important; /* 좌우 패딩을 늘려 화살표 공간 확보 */
 }
 
+.swiper-button-next { right: 10px !important; }
+.swiper-button-prev { left: 10px !important; }
+
+/* 개별 카드 스타일 */
 .news-item {
-    display: flex;
-    align-items: center;
-    padding: 40px 0;
-    border-bottom: 1px solid #eee;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
-    color: #111;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 280px; /* 카드 높이 통일 */
+  padding: 40px;
+  background: #fcfcfc;
+  border: 1px solid #eee;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #111;
 }
 
+.news-item:hover {
+  background: #fff;
+  border-color: #0036c2;
+  box-shadow: 0 20px 40px rgba(0, 54, 194, 0.08);
+  transform: translateY(-10px);
+}
+
+/* 태그 및 날짜 */
 .news-meta {
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.news-date {
-    font-size: 14px;
-    color: #999;
-    font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .news-tag {
-    font-size: 11px;
-    font-weight: 800;
-    color: #0036c2; /* 포인트 컬러 */
-    letter-spacing: 1px;
-    text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0036c2;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
+.news-date {
+  font-size: 13px;
+  color: #999;
+}
+
+/* 제목 (말줄임표 처리) */
 .news-title {
-    flex: 1;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.4;
-    padding-right: 40px;
-    transition: color 0.3s ease;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  flex-grow: 1;
+  /* 세 줄 이상 넘어갈 경우 말줄임표 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .news-arrow {
-    font-size: 28px;
-    color: #eee;
-    transition: all 0.4s ease;
-}
-
-/* Hover 효과 */
-.news-item:hover {
-    padding-left: 20px;
-}
-
-.news-item:hover .news-title {
-    color: #0036c2;
+  margin-top: 20px;
+  font-size: 24px;
+  color: #ddd;
+  transition: all 0.3s ease;
 }
 
 .news-item:hover .news-arrow {
-    color: #0036c2;
-    transform: translateX(10px);
+  color: #0036c2;
+  transform: translateX(5px);
 }
 
+/* Swiper 화살표 커스텀 */
+.swiper-button-next, .swiper-button-prev {
+  color: #111 !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 50%;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+.swiper-button-next:hover, .swiper-button-prev:hover {
+  border-color: #0036c2;
+  color: #0036c2 !important;
+}
 /* 모바일 대응 */
 @media (max-width: 768px) {
     .news-item {

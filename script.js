@@ -109,3 +109,18 @@ interactiveElements.forEach((el) => {
         document.body.classList.remove("cursor-active");
     });
 });
+
+// 뉴스 슬라이더 초기화
+const newsSwiper = new Swiper('.news-slider', {
+  slidesPerView: 1,      // 한 번에 보여줄 슬라이드 개수
+  spaceBetween: 30,     // 슬라이드 사이 간격
+  loop: true,           // 무한 반복
+  navigation: {         // 화살표 설정
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  breakpoints: {        // 화면 크기별 설정 (반응형)
+    768: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 }
+  }
+});
