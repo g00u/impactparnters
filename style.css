@@ -64,7 +64,10 @@ a, button, .logo-item { cursor: none; }
     background-color: rgba(0, 54, 194, 0.1);
     border-color: transparent;
 }
-
+/* 폼 요소나 슬라이더 화살표 등에도 커서 효과 적용 */
+input, textarea, button, .swiper-button-next, .swiper-button-prev {
+    cursor: none;
+}
 /* ======================================================
    2. Header (Fixed Navigation)
    - 고정 헤더이므로 높이를 명확히 정의
@@ -608,7 +611,7 @@ a, button, .logo-item { cursor: none; }
     -webkit-text-fill-color: transparent;
 }
 
-/* 짝수 아이템은 아까의 핑크/바이올렛 유지 */
+/* 짝수 아이템은 차분한 회색톤 */
 .logo-item:nth-child(even) .brand-big-name {
     background: linear-gradient(to bottom, #fff 0%, #fcfcfc 100%);
     -webkit-background-clip: text;
@@ -735,19 +738,23 @@ a, button, .logo-item { cursor: none; }
 }
 
 /* 슬라이더 컨테이너 레이아웃 */
+
 .news-slider {
-  width: 100%;
-  max-width: 1300px; /* 양옆 여백 확보 */
-  margin: 60px auto 0;
-  padding: 20px 50px 80px; /* 화살표 공간 확보 */
-}
-.news-slider {
-  position: relative; /* 화살표 배치의 기준점 */
-  padding: 20px 60px 80px !important; /* 좌우 패딩을 늘려 화살표 공간 확보 */
+    position: relative;
+    width: 100%;
+    max-width: 1400px; /* 조금 더 넓게 사용 */
+    margin: 60px auto 0;
+    padding: 20px 80px 100px !important; /* 좌우 패딩을 늘려 화살표와 카드 간격 확보 */
 }
 
-.swiper-button-next { right: 10px !important; }
-.swiper-button-prev { left: 10px !important; }
+/* 화살표 위치 정교화 */
+.swiper-button-next { right: 20px !important; }
+.swiper-button-prev { left: 20px !important; }
+
+/* 페이지네이션(점)이 필요할 경우를 대비한 하단 여백 */
+.swiper-pagination {
+    bottom: 30px !important;
+}
 
 /* 개별 카드 스타일 */
 .news-item {
@@ -786,11 +793,14 @@ a, button, .logo-item { cursor: none; }
   text-transform: uppercase;
 }
 
+/* [폰트 최적화] 뉴스 날짜에 Montserrat 적용 */
 .news-date {
-  font-size: 13px;
-  color: #999;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 0.05em; /* 숫자 간격 미세 조정 */
 }
-
 /* 제목 (말줄임표 처리) */
 .news-title {
   font-size: 20px;
