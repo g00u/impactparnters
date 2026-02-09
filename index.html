@@ -588,15 +588,65 @@
       <!-- Contact Section -->
       <!-- Contact Section -->
       <section id="contact" class="section">
-        <div class="contact-box">
-          <span class="section-label">CONTACT</span>
-          <h3 class="section-subtitle">IR 제안 및 문의</h3>
-          <form class="contact-form">
-            <input type="text" placeholder="기업명" required />
-            <input type="email" placeholder="이메일" required />
-            <textarea placeholder="사업 요약 및 문의 내용" required></textarea>
-            <button type="submit" class="btn-primary">사업계획서 제출</button>
-          </form>
+        <div class="contact-wrapper">
+          <div class="contact-info-side">
+            <span class="section-label">LOCATION</span>
+            <h3 class="section-subtitle">찾아오시는 길</h3>
+
+            <div id="map" class="map-container">
+              <iframe
+                src="https://kko.to/GEAGBpPDhe"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="info-details">
+              <p><strong>주식회사 임팩트파트너스</strong></p>
+              <p>서울특별시 서초구 강남대로 222-4, 8층(양재동)</p>
+              <p>T. 02-579-6661 | F. 02-579-6662</p>
+              <p>E. impact@impactpartners.kr</p>
+            </div>
+          </div>
+
+          <div class="contact-form-side">
+            <span class="section-label">CONTACT</span>
+            <h3 class="section-subtitle">IR 제안 및 문의</h3>
+            <form class="contact-form" id="ir-form">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="company"
+                  placeholder="기업명"
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="이메일"
+                  required
+                />
+              </div>
+              <textarea
+                name="message"
+                placeholder="사업 요약 및 문의 내용"
+                required
+              ></textarea>
+              <div class="file-upload">
+                <label for="file">사업계획서 첨부 (PDF 권장)</label>
+                <input
+                  type="file"
+                  id="file"
+                  name="attachment"
+                  accept=".pdf,.docx"
+                />
+              </div>
+              <button type="submit" class="btn-primary">사업계획서 제출</button>
+            </form>
+          </div>
         </div>
       </section>
     </main>
