@@ -86,33 +86,33 @@ if (contactForm) {
     });
 }
 
-// [추가] 파일 선택 시 파일명 표시 기능
+/* script.js 내 파일 업로드 부분 */
 const fileInput = document.getElementById('file');
 const fileLabel = document.querySelector('.file-upload label');
+// 파일 리스트를 보여줄 공간 생성 (label 뒤에 추가)
+const fileListDisplay = document.createElement('ul');
+fileListDisplay.id = 'file-list';
+fileInput.parentElement.appendChild(fileListDisplay);
 
 if (fileInput && fileLabel) {
     fileInput.addEventListener('change', (e) => {
         const files = e.target.files;
-        
+        fileListDisplay.innerHTML = ''; // 기존 리스트 초기화
+
         if (files.length > 0) {
-            // 1. 파일이 1개일 경우: 파일명 표시 (교체 시 자동으로 바뀜)
-            if (files.length === 1) {
-                fileLabel.textContent = `선택됨: ${files[0].name}`;
-            } 
-            // 2. 만약 HTML에 multiple 속성이 있다면: 개수 표시
-            else {
-                fileLabel.textContent = `${files.length}개의 파일 선택됨`;
-            }
+            // 문구 변경 (교체 유도)
+            fileLabel.innerHTML = '파일 교체하기 🔄';
+            fileLabel.style.padding = '15px 20px'; // 패딩 축소
             
-            // 시각적 피드백
-            fileLabel.style.color = '#2c5bf0';
-            fileLabel.style.borderColor = '#2c5bf0';
-            fileLabel.style.fontWeight = 'bold';
+            // 파일명 리스트 생성
+            Array.from(files).forEach(file => {
+                const li = document.createElement('li');
+                li.textContent = file.name;
+                fileListDisplay.appendChild(li);
+            });
         } else {
-            // 파일 선택 취소 시 초기화
-            fileLabel.textContent = '파일을 선택하거나 여기로 드래그하세요';
-            fileLabel.style.color = '';
-            fileLabel.style.borderColor = '';
+            fileLabel.innerHTML = '파일 업로드 +';
+            fileListDisplay.innerHTML = '';
         }
     });
 }
