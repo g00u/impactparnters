@@ -1,5 +1,6 @@
 /* ======================================================
-    1. Header Scroll Effect
+  1. 헤더 스크롤 효과 (Header Scroll Effect)
+   - 스크롤 위치에 따라 헤더의 스타일을 변경
 ====================================================== */
 const header = document.querySelector('.header');
 
@@ -13,21 +14,25 @@ window.addEventListener('scroll', () => {
 });
 
 /* ======================================================
-    2. Scroll Reveal Animation (통합 최적화)
+2. 스크롤 애니메이션 (Scroll Reveal Animation)
+   - IntersectionObserver API를 사용하여 요소가 화면에 
+     보일 때 애니메이션을 발생
 ====================================================== */
 // 요소가 화면에 나타나는지 관찰하는 '감시자' 설정
 const observerOptions = {
-    root: null,      // 브라우저 뷰포트 기준
+    root: null,      // 브라우저 뷰포트 기준 관찰
     threshold: 0.15  // 요소가 15% 정도 보일 때 애니메이션 시작
 };
 
 const revealCallback = (entries, observer) => {
     entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            // 1. 요소에 'is-visible' 클래스를 추가하여 CSS 애니메이션 실행
+if (entry.isIntersecting) {
+            // 1. 요소가 화면에 보이면 'is-visible' 클래스를 추가하여 
+            //    CSS에서 정의한 fade-in 애니메이션을 실행합니다.
             entry.target.classList.add('is-visible');
 
-            // 2. 만약 포트폴리오 그리드라면 내부 아이템들을 시간차(Stagger)를 두고 등장시킴
+            // 2. 포트폴리오 그리드(.logo-grid) 내의 아이템들은
+            //    시간차(Stagger)를 두고 순차적으로 등장하게 합니다.
             if (entry.target.classList.contains('logo-grid')) {
                 const items = entry.target.querySelectorAll('.logo-item');
                 items.forEach((item, index) => {
@@ -37,7 +42,8 @@ const revealCallback = (entries, observer) => {
                 });
             }
 
-            // 3. 한 번 나타난 요소는 다시 감시할 필요가 없으므로 관찰 종료 (성능 최적화)
+            // 3. 한 번 나타난 요소는 다시 애니메이션을 발생시킬 
+            //    필요가 없으므로 관찰을 중지하여 성능을 최적화합니다.
             observer.unobserve(entry.target);
         }
     });
@@ -56,13 +62,16 @@ elementsToWatch.forEach((el) => {
 });
 
 /* ======================================================
-    3. Form Submission
+   3. 폼 제출 처리 (Form Submission)
+   - 폼 제출 시 페이지 새로고침을 막고 피드백을 제공
 ====================================================== */
 const contactForm = document.querySelector('.contact-form');
 
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
+        //페이지 새로고침 방지
         e.preventDefault();
+
         const btn = contactForm.querySelector('button');
         const originalText = btn.innerText;
         
@@ -71,14 +80,29 @@ if (contactForm) {
         
         setTimeout(() => {
             btn.innerText = originalText;
-            btn.style.background = ''; 
-            contactForm.reset();
+            btn.style.background = ''; //css 원래 스타일로 복원
+            contactForm.reset(); //폼 초기화
         }, 3000);
     });
 }
 
+// [추가] 파일 선택 시 파일명 표시 기능
+const fileInput = document.getElementById('file');
+const fileLabel = document.querySelector('.file-upload label');
+
+if (fileInput && fileLabel) {
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            fileLabel.textContent = e.target.files[0].name;
+            fileLabel.style.color = '#2c5bf0';
+            fileLabel.style.fontWeight = 'bold';
+        }
+    });
+}
+
 /* ======================================================
-    4. Custom Cursor Logic
+4. 커스텀 커서 논리 (Custom Cursor Logic)
+   - 마우스 커서를 두 개의 요소로 시각화하고 상호작용을 처리합니다.
 ====================================================== */
 const cursorDot = document.querySelector(".cursor-dot");
 const cursorOutline = document.querySelector(".cursor-outline");
@@ -98,14 +122,13 @@ window.addEventListener("mousemove", (e) => {
     }, { duration: 500, fill: "forwards" });
 });
 
-const cursor = document.querySelector('.cursor-outline');
+// 포트폴리오 아이템 호버 시 특수 커서 효과
 const logoItems = document.querySelectorAll('.logo-item');
-
 logoItems.forEach(item => {
     item.addEventListener('mouseenter', () => {
         document.body.classList.add('cursor-active');
-        // 필요 시 카드별로 다른 문구 세팅 가능   
-        cursor.style.setProperty('--cursor-text', '"DETAIL"'); 
+        // CSS 변수를 활용하여 커서 내부에 문구 표시 ("DETAIL")
+        cursorOutline.style.setProperty('--cursor-text', '"DETAIL"'); 
     });
     
     item.addEventListener('mouseleave', () => {
@@ -113,10 +136,7 @@ logoItems.forEach(item => {
     });
 });
 
-
-
-
-// 클릭 가능한 요소에 호버했을 때 커서 확장 효과
+// 클릭 가능한 요소(링크, 버튼) 호버 시 커서가 커지는 효과
 const interactiveElements = document.querySelectorAll("a, button, .logo-item");
 
 interactiveElements.forEach((el) => {
@@ -128,7 +148,32 @@ interactiveElements.forEach((el) => {
     });
 });
 
-// 뉴스 슬라이더 초기화
+
+/* ======================================================
+   5. 뉴스 슬라이더 초기화 (Swiper Initialization)
+   - Swiper.js 라이브러리를 사용하여 뉴스 섹션 슬라이드 구현
+====================================================== */
+
+//  ++ 메뉴 클릭 시 해당 섹션으로 부드럽게 이동
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+
 const newsSwiper = new Swiper('.news-slider', {
   slidesPerView: 1,      // 한 번에 보여줄 슬라이드 개수
   spaceBetween: 30,     // 슬라이드 사이 간격
