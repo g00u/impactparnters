@@ -92,10 +92,27 @@ const fileLabel = document.querySelector('.file-upload label');
 
 if (fileInput && fileLabel) {
     fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            fileLabel.textContent = e.target.files[0].name;
+        const files = e.target.files;
+        
+        if (files.length > 0) {
+            // 1. 파일이 1개일 경우: 파일명 표시 (교체 시 자동으로 바뀜)
+            if (files.length === 1) {
+                fileLabel.textContent = `선택됨: ${files[0].name}`;
+            } 
+            // 2. 만약 HTML에 multiple 속성이 있다면: 개수 표시
+            else {
+                fileLabel.textContent = `${files.length}개의 파일 선택됨`;
+            }
+            
+            // 시각적 피드백
             fileLabel.style.color = '#2c5bf0';
+            fileLabel.style.borderColor = '#2c5bf0';
             fileLabel.style.fontWeight = 'bold';
+        } else {
+            // 파일 선택 취소 시 초기화
+            fileLabel.textContent = '파일을 선택하거나 여기로 드래그하세요';
+            fileLabel.style.color = '';
+            fileLabel.style.borderColor = '';
         }
     });
 }

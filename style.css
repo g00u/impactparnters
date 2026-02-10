@@ -976,6 +976,23 @@ input:focus, textarea:focus {
   font-size: 14px;
 }
 
+.file-upload label {
+    display: block;
+    padding: 15px;
+    border: 2px dashed #ccc; /* 점선으로 영역 표시 */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 마우스를 올렸을 때 '교체/추가' 느낌을 주는 효과 */
+.file-upload label:hover {
+    background-color: rgba(44, 91, 240, 0.05);
+    border-color: #2c5bf0;
+    color: #2c5bf0;
+}
+
+
 .file-upload input {
   display: none;
 }

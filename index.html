@@ -656,12 +656,14 @@
                 required
               ></textarea>
               <div class="file-upload">
-                <label for="file">사업계획서 첨부 (PDF 권장)</label>
+                <label for="file">파일 업로드 + </label>
                 <input
                   type="file"
                   id="file"
                   name="attachment"
                   accept=".pdf,.docx"
+                  multiple
+                  style="display: none"
                 />
               </div>
               <button type="submit" class="btn-primary">사업계획서 제출</button>
