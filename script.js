@@ -86,36 +86,47 @@ if (contactForm) {
     });
 }
 
-/* script.js 내 파일 업로드 부분 */
+/* ======================================================
+  3. 폼 제출 및 파일 업로드 (삭제 버튼 포함 버전)
+====================================================== */
 const fileInput = document.getElementById('file');
 const fileLabel = document.querySelector('.file-upload label');
-// 파일 리스트를 보여줄 공간 생성 (label 뒤에 추가)
-const fileListDisplay = document.createElement('ul');
-fileListDisplay.id = 'file-list';
-fileInput.parentElement.appendChild(fileListDisplay);
+let selectedFiles = []; // 실제로 관리할 파일 배열
 
-if (fileInput && fileLabel) {
+// 파일 리스트를 보여줄 컨테이너 생성
+const fileListContainer = document.createElement('ul');
+fileListContainer.id = 'file-list-ui';
+fileInput.parentElement.appendChild(fileListContainer);
+
+if (fileInput) {
     fileInput.addEventListener('change', (e) => {
-        const files = e.target.files;
-        fileListDisplay.innerHTML = ''; // 기존 리스트 초기화
-
-        if (files.length > 0) {
-            // 문구 변경 (교체 유도)
-            fileLabel.innerHTML = '파일 교체하기 🔄';
-            fileLabel.style.padding = '15px 20px'; // 패딩 축소
-            
-            // 파일명 리스트 생성
-            Array.from(files).forEach(file => {
-                const li = document.createElement('li');
-                li.textContent = file.name;
-                fileListDisplay.appendChild(li);
-            });
-        } else {
-            fileLabel.innerHTML = '파일 업로드 +';
-            fileListDisplay.innerHTML = '';
-        }
+        const files = Array.from(e.target.files);
+        
+        // 새로 선택한 파일들을 기존 배열에 추가 (중복 허용)
+        selectedFiles = [...selectedFiles, ...files];
+        renderFileList();
     });
 }
+
+// 파일 리스트를 화면에 그리는 함수
+function renderFileList() {
+    fileListContainer.innerHTML = ''; // 초기화
+
+    selectedFiles.forEach((file, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>📄 ${file.name}</span>
+            <button type="button" class="file-remove-btn" onclick="removeFile(${index})">✕</button>
+        `;
+        fileListContainer.appendChild(li);
+    });
+}
+
+// 특정 파일을 삭제하는 함수
+window.removeFile = (index) => {
+    selectedFiles.splice(index, 1); // 배열에서 해당 파일 삭제
+    renderFileList(); // 다시 그리기
+};
 
 /* ======================================================
 4. 커스텀 커서 논리 (Custom Cursor Logic)

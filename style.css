@@ -1048,6 +1048,61 @@ input::placeholder, textarea::placeholder {
     margin-right: 8px;
 }
 
+/* 파일 리스트 UI 스타일 */
+#file-list-ui {
+    margin-top: 15px;
+    list-style: none;
+    padding: 0;
+}
+
+#file-list-ui li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #eee;
+    font-size: 14px;
+}
+
+/* X 삭제 버튼 스타일 */
+.file-remove-btn {
+    background: none;
+    border: none;
+    color: #ff4d4f;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 5px;
+    transition: color 0.2s;
+    width: auto; /* 기존 버튼 스타일 상속 방지 */
+}
+
+.file-remove-btn:hover {
+    color: #cf1322;
+}
+
+/* 파일 업로드 라벨 (추가하기 버튼 느낌) */
+.file-upload label {
+    display: block;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.file-upload label:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
 
 /* 반응형 처리 */
 @media (max-width: 1024px) {
