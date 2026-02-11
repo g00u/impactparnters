@@ -134,7 +134,10 @@ window.removeFile = (index) => {
 ====================================================== */
 const cursorDot = document.querySelector(".cursor-dot");
 const cursorOutline = document.querySelector(".cursor-outline");
+// 터치 기기 체크
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+if(!isTouchDevice){
 window.addEventListener("mousemove", (e) => {
     const posX = e.clientX;
     const posY = e.clientY;
@@ -149,6 +152,7 @@ window.addEventListener("mousemove", (e) => {
         top: `${posY}px`
     }, { duration: 500, fill: "forwards" });
 });
+}
 
 // 포트폴리오 아이템 호버 시 특수 커서 효과
 const logoItems = document.querySelectorAll('.logo-item');
