@@ -66,6 +66,28 @@ const revealCallback = (entries, observer) => {
     });
 };
 
+// 새로운 metricsObserver 추가 
+const metricsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // 해당 섹션이 보이면 
+            entry.target.classList.add('is-visible');
+            
+            //  숫자 카운팅 시작
+            const counters = entry.target.querySelectorAll('.count');
+            counters.forEach(counter => countUp(counter));
+            
+            metricsObserver.unobserve(entry.target); // 한 번만 실행
+        }
+    });
+}, { threshold: 0.5 }); // 50% 보일 때 실행
+
+// 대상 등록: HTML의 클래스명과 일치하는지 확인!
+document.querySelectorAll('.metrics-section').forEach(section => {
+    metricsObserver.observe(section);
+});
+
+
 const observer = new IntersectionObserver(revealCallback, observerOptions);
 
 // 감시 대상 등록 (metrics-section 추가)
