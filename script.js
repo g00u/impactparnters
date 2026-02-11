@@ -102,27 +102,61 @@ elementsToWatch.forEach((el) => {
 /* ======================================================
    3. 이메일 복사하기 기능
 ====================================================== */
-// 이메일 복사하기 함수
-function copyEmail() {
-    const email = document.getElementById('target-email').innerText;
-    
-    // 클립보드 API 사용
-    navigator.clipboard.writeText(email).then(() => {
-        // 복사 성공 시 버튼 텍스트 잠시 변경
-        const btn = document.querySelector('.copy-button');
-        const originalText = btn.innerText;
+function copyEmail(event) {
+    // 1. 이메일 텍스트 가져오기
+    const emailElement = document.getElementById('target-email');
+    if (!emailElement) return;
+    const email = emailElement.innerText.trim();
+
+    // 2. 복사 성공 시 UI 변경 함수
+    const btn = event ? event.currentTarget : document.querySelector('.mail-submit-btn');
+    const originalContent = btn.innerHTML;
+
+    function showSuccess() {
         btn.innerText = '복사 완료!';
-        
-        // 2초 뒤 원래 텍스트로 복구
         setTimeout(() => {
-            btn.innerText = originalText;
+            btn.innerHTML = originalContent;
         }, 2000);
-    }).catch(err => {
-        console.error('복사 실패: ', err);
-        alert('클립보드 복사를 지원하지 않는 브라우저입니다.');
-    });
+    }
+
+    // 3. 복사 시도 (최신 방식)
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email)
+            .then(showSuccess)
+            .catch(() => fallbackCopy(email, showSuccess));
+    } else {
+        // 4. 로컬(HTTP) 환경을 위한 강제 복사 방식 (Fallback)
+        fallbackCopy(email, showSuccess);
+    }
 }
 
+// 구식 환경/로컬 환경용 강제 복사 로직
+function fallbackCopy(text, callback) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    // 화면 밖으로 치워버리기
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    textArea.style.top = "0";
+    document.body.appendChild(textArea);
+    
+    textArea.focus();
+    textArea.select();
+
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            callback();
+        } else {
+            throw new Error('copy command failed');
+        }
+    } catch (err) {
+        alert('이메일 주소: ' + text + '\n직접 복사해주세요!');
+    }
+
+    document.body.removeChild(textArea);
+}
 /* ======================================================
 4. 커스텀 커서 논리
 ====================================================== */
