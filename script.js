@@ -100,58 +100,28 @@ elementsToWatch.forEach((el) => {
 
 
 /* ======================================================
-   3. 폼 제출 및 파일 업로드 UI
+   3. 이메일 복사하기 기능
 ====================================================== */
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = contactForm.querySelector('button');
+// 이메일 복사하기 함수
+function copyEmail() {
+    const email = document.getElementById('target-email').innerText;
+    
+    // 클립보드 API 사용
+    navigator.clipboard.writeText(email).then(() => {
+        // 복사 성공 시 버튼 텍스트 잠시 변경
+        const btn = document.querySelector('.copy-button');
         const originalText = btn.innerText;
-        btn.innerText = '제출 완료되었습니다.';
-        btn.style.background = '#28a745';
+        btn.innerText = '복사 완료!';
+        
+        // 2초 뒤 원래 텍스트로 복구
         setTimeout(() => {
             btn.innerText = originalText;
-            btn.style.background = '';
-            contactForm.reset();
-            selectedFiles = []; // 파일 목록 초기화
-            renderFileList();
-        }, 3000);
+        }, 2000);
+    }).catch(err => {
+        console.error('복사 실패: ', err);
+        alert('클립보드 복사를 지원하지 않는 브라우저입니다.');
     });
 }
-
-const fileInput = document.getElementById('file');
-const fileListContainer = document.createElement('ul');
-fileListContainer.id = 'file-list-ui';
-if(fileInput) fileInput.parentElement.appendChild(fileListContainer);
-
-let selectedFiles = [];
-
-if (fileInput) {
-    fileInput.addEventListener('change', (e) => {
-        const files = Array.from(e.target.files);
-        selectedFiles = [...selectedFiles, ...files];
-        renderFileList();
-    });
-}
-
-function renderFileList() {
-    fileListContainer.innerHTML = '';
-    selectedFiles.forEach((file, index) => {
-        const li = document.createElement('li');
-        li.className = 'file-item'; // 스타일링을 위한 클래스
-        li.innerHTML = `
-            <span>📄 ${file.name}</span>
-            <button type="button" class="file-remove-btn" onclick="removeFile(${index})">✕</button>
-        `;
-        fileListContainer.appendChild(li);
-    });
-}
-
-window.removeFile = (index) => {
-    selectedFiles.splice(index, 1);
-    renderFileList();
-};
 
 /* ======================================================
 4. 커스텀 커서 논리

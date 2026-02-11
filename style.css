@@ -1097,27 +1097,6 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
   letter-spacing: -0.5px;
 }
 
-.copy-button {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  padding: 10px 15px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  position: absolute;
-  right: 175px;
-  bottom: 60px;
-  box-shadow: 0 4px 10px rgba(0, 54, 194, 0.1); /* 그림자 추가 */
-}
-
-.copy-button:hover {
-  background: #0036c2;
-  color: #fff;
-  border-color: #0036c2;
-}
 
 /* 가이드 리스트 */
 .guide-list {
@@ -1145,19 +1124,21 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
   border-radius: 50%;
 }
 
-/* 이메일 바로가기 버튼 */
+/* 이메일 복사하기 버튼 */
 .mail-submit-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background: #0036c2;
+  background: #0036c2; /* 파란색 배경 유지 */
   color: #fff !important;
-  text-decoration: none;
+  border: none; /* a 태그에서 button으로 바뀌었으므로 border 제거 */
+  width: 100%; /* 카드 너비에 꽉 차게 */
   padding: 22px;
   border-radius: 18px;
   font-size: 18px;
   font-weight: 700;
+  cursor: pointer; /* 버튼이므로 커서 변경 */
   transition: all 0.3s ease;
 }
 
@@ -1166,7 +1147,6 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 54, 194, 0.2);
 }
-
 /* ======================================================
    반응형 (Responsive)
 ====================================================== */
