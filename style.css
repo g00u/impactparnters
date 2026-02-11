@@ -412,56 +412,81 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 
 
 /* ======================================================
-   Metrics Section Style
+   Metrics Section Style (Box/Card Style)
 ====================================================== */
 .metrics-section {
-  padding: 80px 0;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-  position: relative;
-  z-index: 10;
+  padding: 100px 0;
+  background-color: #f8f9fa; /* 연한 회색 배경으로 박스 강조 */
 }
 
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4열 배치 */
-  gap: 40px;
-  text-align: center;
+  gap: 20px; /* 박스 사이 간격 */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .metric-item {
-text-align: center;
-  opacity: 1 !important; /* 혹시 안보일 경우를 대비해 우선 강제 노출 테스트 */
+  background: #ffffff; /* 박스 흰색 배경 */
+  padding: 40px 30px; /* 박스 내부 여백 */
+  border-radius: 16px; /* 박스 모서리 둥글게 */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* 부드러운 그림자 효과 */
+  text-align: center;
+  border: 1px solid #eee;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 1 !important; /* 애니메이션과 충돌 방지 */
+  transform: none !important;
+}
+
+/* 마우스 올렸을 때 효과 */
+.metric-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 .metric-label {
-  font-size: 16px;
-  color: var(--text-muted);
+  display: block;
+  font-size: 16px; /* 라벨 글자 크기 */
+  color: #666;
+  margin-bottom: 15px;
   font-weight: 500;
+  letter-spacing: -0.5px;
 }
 
 .metric-value {
-  font-size: 42px;
+  font-size: 48px; /* 숫자 글자 크기 키움 */
   font-weight: 700;
-  color: var(--primary-color); /* 포인트 컬러 사용 */
-  font-family: 'Montserrat', sans-serif;
+  color: #0036c2; /* 포인트 컬러 */
+  font-family: 'Montserrat', sans-serif; /* 영문 폰트 */
+  line-height: 1;
 }
 
-.metric-value span {
-  font-size: 18px;
-  margin-left: 4px;
-  color: var(--text-main);
+.metric-value .unit {
+  font-size: 20px; /* 단위 글자 크기 키움 */
+  color: #333;
+  margin-left: 5px;
+  font-weight: 600;
+  font-family: 'Pretendard', sans-serif; /* 단위는 한글 폰트 */
 }
 
-/* 반응형 처리 */
+/* 반응형 처리: 모바일 */
 @media (max-width: 768px) {
   .metrics-grid {
     grid-template-columns: repeat(2, 1fr); /* 모바일은 2열 */
-    gap: 30px;
+    gap: 15px;
   }
   
+  .metric-item {
+    padding: 30px 20px;
+  }
+
   .metric-value {
-    font-size: 32px;
+    font-size: 32px; /* 모바일에서 숫자 크기 조정 */
+  }
+  
+  .metric-label {
+    font-size: 14px;
   }
 }
 
