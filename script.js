@@ -213,3 +213,18 @@ if(document.querySelector('.news-slider')){
         breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
     });
 }
+
+/* ======================================================
+   6. 로고 클릭 시 최상단 이동
+====================================================== */
+const logo = document.querySelector('.logo');
+
+if (logo) {
+    logo.addEventListener('click', (e) => {
+        e.preventDefault(); // 기본 링크 동작 방지
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 부드럽게 이동
+        });
+    });
+}

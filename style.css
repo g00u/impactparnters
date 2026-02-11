@@ -183,9 +183,11 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 .logo {
   text-shadow: 1px 1px 0px rgba(0,0,0,0.02);
   transition: transform 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 .logo:hover {
   transform: scale(1.05);
+  opacity: 0.8;
 }
 
 /* =====================================================
