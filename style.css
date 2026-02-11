@@ -967,28 +967,34 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     .news-arrow { display: none; }
 }
 /* ======================================================
-   9. Contact
+   9. Contact Section
 ====================================================== */
-/* 컨택트 전체 레이아웃 */
-/* Contact Section */
+
+/* 레이아웃 설정 */
 .contact-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 60px;
+  align-items: flex-start;
+}
+
+/* 왼쪽: 지도 및 정보 사이드 */
+.contact-info-side {
+  flex: 1;
 }
 
 .map-container {
   margin: 30px 0;
-  border-radius: 10px;
+  border-radius: 15px; /* 조금 더 둥글게 */
   overflow: hidden;
   position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .map-image {
   width: 100%;
-  height: 300px;
+  height: 350px; /* 높이 약간 조절 */
   object-fit: cover;
-  transition: transform 0.5s;
+  transition: transform 0.5s ease;
 }
 
 .map-link:hover .map-image {
@@ -998,13 +1004,14 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 .map-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
+  font-weight: 600;
 }
 
 .map-link:hover .map-overlay {
@@ -1013,203 +1020,176 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 
 .info-details {
   font-size: 15px;
+  margin-top: 25px;
 }
 
 .company-name {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 20px;
+  color: #1a1a1a;
 }
 
 .info-item {
-  margin-bottom: 10px;
-  color: var(--gray-text);
+  margin-bottom: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
 }
 
 .info-label {
   font-weight: 700;
-  color: var(--text-color);
-  margin-right: 10px;
-  font-family: var(--font-eng);
+  color: #1a1a1a;
+  width: 60px; /* 라벨 너비 고정으로 정렬 */
+  flex-shrink: 0;
+  font-size: 13px;
 }
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/* 오른쪽: IR 안내 카드 사이드 */
+.contact-form-side {
+  flex: 1;
+}
+
+.ir-guide-card {
+  background: #ffffff;
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f1f1;
   margin-top: 30px;
 }
 
-.form-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
+.guide-header p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  word-break: keep-all;
+}
+
+/* 이메일 복사 박스 */
+.email-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8faff;
+  padding: 25px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.email-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0036c2;
+  margin-bottom: 5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.email-address {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+.copy-button {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  position: absolute;
+  right: 175px;
+  bottom: 60px;
+  box-shadow: 0 4px 10px rgba(0, 54, 194, 0.1); /* 그림자 추가 */
+}
+
+.copy-button:hover {
+  background: #0036c2;
+  color: #fff;
+  border-color: #0036c2;
+}
+
+/* 가이드 리스트 */
+.guide-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.guide-list li {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 14px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.guide-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  background-color: #0036c2;
+  border-radius: 50%;
+}
+
+/* 이메일 바로가기 버튼 */
+.mail-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #0036c2;
+  color: #fff !important;
+  text-decoration: none;
+  padding: 22px;
+  border-radius: 18px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.mail-submit-btn:hover {
+  background: #0028a0;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 54, 194, 0.2);
 }
 
 /* ======================================================
-    9. Contact (폼 입력 박스 스타일 개선)
+   반응형 (Responsive)
 ====================================================== */
-
-/* 폼 입력창 기본 스타일 */
-input, textarea {
-    width: 100%;
-    padding: 18px; /* 패딩을 약간 늘려 여유 공간 확보 */
-    border: 1px solid #ddd; /* 테두리 색상을 명확하게 변경 */
-    border-radius: 8px; /* 테두리를 조금 더 둥글게 */
-    font-family: var(--font-main);
-    font-size: 15px;
-    background-color: #fff;
-    transition: all 0.3s ease; /* 강조 효과 전환 속도 */
-    resize: none;
-}
-
-/* 박스에 그림자 효과를 살짝 넣어 입체감 부여 */
-input:not([type="file"]), textarea {
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-}
-
-textarea {
-    height: 180px; /* 높이 약간 증가 */
-}
-
-/* 폼 입력창에 마우스를 대거나 클릭했을 때 (Focus) */
-input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--accent-color, #2c5bf0); /* 포인트 컬러로 테두리 변경 */
-    box-shadow: 0 0 0 4px rgba(44, 91, 240, 0.1); /* 외부로 퍼지는 은은한 파란색 그림자 */
-    background-color: #fff;
-}
-
-/* 플레이스홀더 색상 조정 */
-input::placeholder, textarea::placeholder {
-    color: #aaa;
-}
-/* ======================================================
-    9. Contact (개선된 파일 업로드 스타일)
-====================================================== */
-
-.file-upload {
-    position: relative;
-    border: 2px dashed #ddd; /* 더 굵고 명확한 점선 */
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.file-upload label {
-    display: flex;
+@media (max-width: 992px) {
+  .contact-wrapper {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 20px;
-    cursor: pointer;
-    color: var(--gray-text);
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
+    gap: 40px;
+  }
+  
+  .ir-guide-card {
+    padding: 35px 25px;
+  }
 
-/* 마우스를 올렸을 때 파란색 강조 */
-.file-upload:hover {
-    border-color: var(--accent-color, #2c5bf0);
-    background-color: rgba(44, 91, 240, 0.02);
-}
-
-.file-upload label:hover {
-    color: var(--accent-color, #2c5bf0);
-    border: none; /* 기존 중복 보더 제거 */
-}
-
-/* 파일이 선택되었을 때 나타날 파일명 리스트 스타일 */
-#file-list {
-    margin-top: 10px;
-    font-size: 13px;
-    color: var(--accent-color, #2c5bf0);
-    text-align: left;
-    padding: 0 15px 15px;
-    list-style: none;
-}
-
-#file-list li {
-    background: #fff;
-    padding: 5px 10px;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#file-list li::before {
-    content: "📄";
-    margin-right: 8px;
-}
-
-/* 파일 리스트 UI 스타일 */
-#file-list-ui {
-    margin-top: 15px;
-    list-style: none;
-    padding: 0;
-}
-
-#file-list-ui li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8f9fa;
-    padding: 10px 15px;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    border: 1px solid #eee;
-    font-size: 14px;
-}
-
-/* X 삭제 버튼 스타일 */
-.file-remove-btn {
-    background: none;
-    border: none;
-    color: #ff4d4f;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0 5px;
-    transition: color 0.2s;
-    width: auto; /* 기존 버튼 스타일 상속 방지 */
-}
-
-.file-remove-btn:hover {
-    color: #cf1322;
-}
-
-/* 파일 업로드 라벨 (추가하기 버튼 느낌) */
-.file-upload label {
-    display: block;
-    padding: 12px;
-    background: #fff;
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
-    border-radius: 5px;
+  .email-box {
+    flex-direction: column;
+    gap: 15px;
     text-align: center;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
+  }
+  
+  .email-address {
+    font-size: 1.2rem;
+  }
 }
-
-.file-upload label:hover {
-    background: var(--accent-color);
-    color: #fff;
-}
-
-
-/* 반응형 처리 */
-@media (max-width: 1024px) {
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-        gap: 60px;
-    }
-}
-
 /* ======================================================
    10. Footer
 ====================================================== */

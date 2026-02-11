@@ -666,39 +666,48 @@
           <div class="contact-form-side">
             <span class="section-label">CONTACT</span>
             <h3 class="section-subtitle">IR 제안 및 문의</h3>
-            <form class="contact-form" id="ir-form">
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="company"
-                  placeholder="기업명"
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="이메일"
-                  required
-                />
+
+            <div class="ir-guide-card">
+              <div class="guide-header">
+                <p>
+                  임팩트파트너스는 세상을 바꿀 혁신적인 팀을 항상 기다립니다.
+                </p>
               </div>
-              <textarea
-                name="message"
-                placeholder="사업 요약 및 문의 내용"
-                required
-              ></textarea>
-              <div class="file-upload">
-                <label for="file">파일 업로드 + </label>
-                <input
-                  type="file"
-                  id="file"
-                  name="attachment"
-                  accept=".pdf,.docx"
-                  multiple
-                  style="display: none"
-                />
+
+              <div class="email-box">
+                <div class="email-info">
+                  <span class="email-title">OFFICIAL EMAIL</span>
+                  <span class="email-address" id="target-email"
+                    >impact@impactpartners.kr</span
+                  >
+                </div>
+                <button class="copy-button" onclick="copyEmail()">
+                  복사하기
+                </button>
               </div>
-              <button type="submit" class="btn-primary">사업계획서 제출</button>
-            </form>
+
+              <ul class="guide-list">
+                <li>사업계획서(IR 자료)는 자유 양식으로 첨부해 주세요.</li>
+                <li>검토 후 담당 심사역이 개별적으로 연락드립니다.</li>
+                <li>첨부파일은 가급적 PDF 형식을 권장합니다.</li>
+              </ul>
+
+              <a href="mailto:impact@impactpartners.kr" class="mail-submit-btn">
+                이메일로 IR 제출하기
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </section>
