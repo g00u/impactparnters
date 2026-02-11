@@ -31,9 +31,14 @@ body {
 /* ======================================================
    Custom Cursor Style
 ====================================================== */
-/* 기본 마우스 포인터 숨기기 (선택 사항) */
+/* 기본 마우스 포인터 숨기기 (선택 사항) 
 body { cursor: none; }
-a, button, .logo-item { cursor: none; }
+a, button, .logo-item { cursor: none; }*/
+
+/* 수정 코드: 포인터 요소에만 커스텀 커서 사용 */
+a, button, .logo-item { 
+    cursor: pointer; /* 터치 기기나 JS 비활성화 시 기본 포인터 보여줌 */
+}
 
 .cursor-dot, .cursor-outline {
     position: fixed;
@@ -85,6 +90,17 @@ a, button, .logo-item { cursor: none; }
 /* 폼 요소나 슬라이더 화살표 등에도 커서 효과 적용 */
 input, textarea, button, .swiper-button-next, .swiper-button-prev {
     cursor: none;
+}
+
+
+/* 터치 기기에서는 커스텀 커서를 숨겨야 함 */
+@media (pointer: coarse) {
+    .cursor-dot, .cursor-outline {
+        display: none;
+    }
+    body {
+        cursor: auto !important;
+    }
 }
 /* ======================================================
    2. Header (Fixed Navigation)
