@@ -839,102 +839,142 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
    8. News Section (Minimal List)
 ====================================================== */
 /* ======================================================
-   News Slider Section - High Trust Edition
+   News Section - High Trust Slider Edition
 ====================================================== */
 #news {
     background-color: #fff;
     padding: 120px 0;
-    border-top: 1px solid #f0f0f0; /* 섹션 구분선으로 신뢰감 추가 */
+    border-top: 1px solid #f0f0f0;
 }
 
+/* 상단 헤더 정렬: 제목은 왼쪽, 화살표는 오른쪽 */
+.news-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    padding: 0 80px; /* 슬라이더와 동일한 여백 */
+}
+
+/* 커스텀 네비게이션 버튼 (상단 우측 배치) */
+.news-nav-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.news-prev, .news-next {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    color: #333;
+}
+
+/* 끝까지 갔을 때 버튼 흐리게 처리 (loop: false 대응) */
+.news-prev.swiper-button-disabled,
+.news-next.swiper-button-disabled {
+    opacity: 0.2;
+    cursor: default;
+    border-color: #f0f0f0;
+    color: #ccc;
+}
+
+.news-prev:hover:not(.swiper-button-disabled), 
+.news-next:hover:not(.swiper-button-disabled) {
+    border-color: #0036c2;
+    color: #0036c2;
+    background: #f8faff;
+}
+
+/* 슬라이더 컨테이너 */
 .news-slider {
-    position: relative;
     width: 100%;
     max-width: 1400px;
-    margin: 60px auto 0;
-    padding: 20px 60px 80px !important; /* 아래 여백 최적화 */
+    margin: 0 auto;
+    padding: 20px 80px 60px !important; /* 좌우 여백을 헤더와 맞춤 */
+    overflow: visible; /* 카드 호버 시 그림자가 잘리지 않게 */
 }
 
-/* 개별 아이템: 카드 형태를 버리고 '기사 리스트' 느낌으로 */
+/* 개별 아이템 카드 */
 .news-item {
     display: flex;
     flex-direction: column;
-    height: 300px; 
-    padding: 30px;
-    background: #fff; /* 배경은 순백색으로 */
-    border: 1px solid #e0e0e0; /* 선은 더 얇고 명확하게 */
+    height: 320px; 
+    padding: 35px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
     text-decoration: none;
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     color: #111;
     position: relative;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
 }
 
-/* 언론사 로고 컨테이너 */
+.news-item:hover {
+    border-color: #0036c2;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 54, 194, 0.05);
+    background: #fff; /* 호버 시 배경색은 유지하거나 아주 미세하게만 변경 */
+}
+
+/* 언론사 로고 */
 .news-media-logo {
-    height: 30px; /* 로고가 들어갈 공간 높이 지정 */
-    margin-bottom: 20px; /* 로고와 메타 정보 사이 간격 */
+    height: 24px;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
-    overflow: hidden; /* 로고가 너무 크면 잘리도록 */
 }
 
 .news-media-logo img {
-    max-height: 100%; /* 로고 컨테이너 높이에 맞춤 */
-    max-width: 100%; /* 너비는 컨테이너 안에 맞춰짐 */
-    object-fit: contain; /* 비율 유지하며 포함 */
-    opacity: 0.7; /* 로고가 너무 튀지 않게 투명도 조절 */
-    filter: grayscale(100%); /* 흑백 로고로 통일감 */
-    transition: all 0.3s ease;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: 0.3s;
 }
 
-/* 호버 시 로고 색상 원복 및 진하게 */
 .news-item:hover .news-media-logo img {
-    opacity: 1;
     filter: grayscale(0%);
-}
-
-/* 호버 시: 과한 그림자 대신 선명한 블루 라인만 */
-.news-item:hover {
-    border-color: #0036c2;
-    background: #f8faff; /* 아주 연한 파란색 배경 */
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 54, 194, 0.06);
+    opacity: 1;
 }
 
 /* 메타 정보 (태그+날짜) */
 .news-meta {
     display: flex;
-    justify-content: space-between; /* 양 끝 정렬 */
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #f0f0f0; /* 제목과 메타 정보 분리 */
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .news-tag {
     font-size: 10px;
     font-weight: 800;
     color: #0036c2;
-    background: rgba(0, 54, 194, 0.05); /* 태그에 아주 연한 배경 추가 */
-    padding: 4px 8px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
 }
 
 .news-date {
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
-    color: #aaa;
-    font-weight: 500;
+    color: #999;
 }
 
-/* 제목: 더 신뢰감 있게 */
+/* 제목 */
 .news-title {
     font-size: 19px;
     font-weight: 700;
     line-height: 1.6;
     color: #1a1a1a;
     margin: 0;
-    word-break: keep-all; /* 한글 가독성 향상 */
+    word-break: keep-all;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: calc();
@@ -942,56 +982,33 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     overflow: hidden;
 }
 
-/* 화살표: 클래식하게 */
+/* 외부 링크 화살표 아이콘 */
 .news-arrow {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
-    font-size: 16px;
-    color: #b0b0b0;
-    transition: all 0.3s ease;
+    bottom: 35px;
+    right: 35px;
+    font-size: 18px;
+    color: #ddd;
+    transition: 0.3s;
 }
 
 .news-item:hover .news-arrow {
     color: #0036c2;
-    transform: translate(2px, -2px);
+    transform: translate(3px, -3px);
 }
 
-/* 네비게이션 버튼: 미니멀 & 전문적 */
-/* Swiper 화살표 커스텀 - 신뢰감 있는 얇은 스타일 */
-.swiper-button-next, .swiper-button-prev {
-    color: #333 !important; /* 글자 색상 약간 밝게 */
-    width: 50px !important;  /* 크기 약간 크게 */
-    height: 50px !important;
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06); /* 부드러운 그림자 */
-    transition: all 0.3s ease;
-}
-
-.swiper-button-next:hover, .swiper-button-prev:hover {
-    border-color: #0036c2;
-    color: #0036c2 !important;
-    background: #f8faff; /* 호버 시 연한 파란색 배경 */
-    box-shadow: 0 6px 20px rgba(0, 54, 194, 0.15); /* 호버 시 그림자 강조 */
-}
-
-/* 화살표 아이콘 크기 조절 */
-.swiper-button-next:after, .swiper-button-prev:after {
-    font-size: 18px !important; /* 크기 약간 확대 */
-    font-weight: 300 !important; /* 아주 얇게 변경 (중요) */
-}
 /* 모바일 대응 */
+@media (max-width: 1024px) {
+    .news-header-wrapper, .news-slider { padding: 0 40px; }
+}
+
 @media (max-width: 768px) {
-    .news-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-    .news-meta { width: 100%; }
-    .news-title { font-size: 18px; padding-right: 0; }
-    .news-arrow { display: none; }
+    #news { padding: 80px 0; }
+    .news-header-wrapper { padding: 0 20px; }
+    .news-slider { padding: 20px 20px 40px !important; }
+    .news-item { padding: 25px; height: auto; min-height: 280px; }
+    .news-title { font-size: 17px; }
+    .news-nav-buttons { display: none; } /* 모바일은 스와이프 위주라 버튼 숨김 가능 */
 }
 /* ======================================================
    9. Contact Section

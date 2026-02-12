@@ -209,13 +209,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Swiper는 HTML에 해당 클래스가 있을 때만 실행하도록 조건부 처리
 if(document.querySelector('.news-slider')){
-    const newsSwiper = new Swiper('.news-slider', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
-    });
+const newsSwiper = new Swiper('.news-slider', {
+    slidesPerView: 3,        // 한 화면에 3개 노출
+    slidesPerGroup: 3,       // 화살표 클릭 시 3개씩 이동
+    spaceBetween: 30,        // 카드 사이 간격
+    loop: false,             // 무한 반복 끄기
+    
+    // 커스텀 버튼 연결
+    navigation: {
+        nextEl: '.news-next',
+        prevEl: '.news-prev',
+    },
+
+    // 모바일 대응
+    breakpoints: {
+        320: { slidesPerView: 1, slidesPerGroup: 1, spaceBetween: 20 },
+        768: { slidesPerView: 2, slidesPerGroup: 2, spaceBetween: 30 },
+        1024: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 30 }
+    }
+});
 }
 
 /* ======================================================
