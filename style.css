@@ -958,23 +958,29 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 }
 
 /* 네비게이션 버튼: 미니멀 & 전문적 */
+/* Swiper 화살표 커스텀 - 신뢰감 있는 얇은 스타일 */
 .swiper-button-next, .swiper-button-prev {
-    color: #111 !important;
-    width: 48px !important;
-    height: 48px !important;
+    color: #333 !important; /* 글자 색상 약간 밝게 */
+    width: 50px !important;  /* 크기 약간 크게 */
+    height: 50px !important;
     background: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06); /* 부드러운 그림자 */
+    transition: all 0.3s ease;
 }
 
 .swiper-button-next:hover, .swiper-button-prev:hover {
     border-color: #0036c2;
     color: #0036c2 !important;
+    background: #f8faff; /* 호버 시 연한 파란색 배경 */
+    box-shadow: 0 6px 20px rgba(0, 54, 194, 0.15); /* 호버 시 그림자 강조 */
 }
 
+/* 화살표 아이콘 크기 조절 */
 .swiper-button-next:after, .swiper-button-prev:after {
-    font-size: 14px !important;
+    font-size: 18px !important; /* 크기 약간 확대 */
+    font-weight: 300 !important; /* 아주 얇게 변경 (중요) */
 }
 /* 모바일 대응 */
 @media (max-width: 768px) {
