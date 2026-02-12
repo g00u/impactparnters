@@ -843,8 +843,9 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 ====================================================== */
 #news {
     background-color: #fff;
-    padding: 120px 0;
-    border-top: 1px solid #f0f0f0;
+    padding: 100px;
+    /* 섹션 상단에 굵은 선으로 신뢰감 전달 */
+    border-top: 4px solid #0036c2;
 }
 
 /* 상단 헤더 정렬: 제목은 왼쪽, 화살표는 오른쪽 */
@@ -857,60 +858,76 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     padding: 0 80px; /* 슬라이더와 동일한 여백 */
 }
 
-/* 커스텀 네비게이션 버튼 (상단 우측 배치) */
+/* 하단 네비게이션 컨테이너 */
+.news-footer-nav {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    max-width: 1400px;
+    margin: 30px auto 0;
+    padding-right: 80px; /* 슬라이더 카드 위치와 맞춤 */
+}
+
 .news-nav-buttons {
     display: flex;
-    gap: 8px;
+    gap: 1px; /* 버튼 사이를 아주 미세한 선으로 연결한 느낌 */
+    background: #eee; /* 버튼 사이 선 효과 */
+    border: 1px solid #eee;
 }
 
 .news-prev, .news-next {
-    width: 44px;
-    height: 44px;
-    border: 1px solid #e0e0e0;
+    width: 50px;
+    height: 50px;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    background: #fff;
+    transition: all 0.2s ease;
     color: #333;
 }
 
-/* 끝까지 갔을 때 버튼 흐리게 처리 (loop: false 대응) */
-.news-prev.swiper-button-disabled,
-.news-next.swiper-button-disabled {
-    opacity: 0.2;
-    cursor: default;
-    border-color: #f0f0f0;
-    color: #ccc;
-}
-
+/* 호버 시 세련된 블루 포인트 */
 .news-prev:hover:not(.swiper-button-disabled), 
 .news-next:hover:not(.swiper-button-disabled) {
-    border-color: #0036c2;
-    color: #0036c2;
-    background: #f8faff;
+    background: #0036c2;
+    color: #fff;
 }
 
+/* 비활성화 상태 */
+.news-prev.swiper-button-disabled,
+.news-next.swiper-button-disabled {
+    color: #ccc;
+    cursor: default;
+}
+
+/* 뉴스 슬라이더 하단 여백 조정 */
+.news-slider {
+    padding-bottom: 20px !important;
+}
 /* 슬라이더 컨테이너 */
 .news-slider {
+    position: relative;
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px 80px 60px !important; /* 좌우 여백을 헤더와 맞춤 */
-    overflow: visible; /* 카드 호버 시 그림자가 잘리지 않게 */
+    max-width: 1600px;
+    margin: 40px auto 0;
+    padding: 40px 80px !important;
+    
+    /* 전체 박스 스타일 */
+    background-color: #f9f9f9; 
+    border: none; 
+    border-radius: 8px; 
+    padding: 60px 80px !important; 
 }
-
 /* 개별 아이템 카드 */
 .news-item {
     display: flex;
     flex-direction: column;
     height: 320px; 
-    padding: 35px;
+    padding: 30px;
     background: #fff;
     border: 1px solid #e0e0e0;
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.3s ease;
     color: #111;
     position: relative;
     box-shadow: 0 0 0 rgba(0,0,0,0);
