@@ -839,122 +839,117 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
    8. News Section (Minimal List)
 ====================================================== */
 /* ======================================================
-   News Slider Section
+   News Slider Section - High Trust Edition
 ====================================================== */
 #news {
-  background-color: #fff;
-  padding: 120px 0;
-  overflow: hidden; /* 슬라이더가 삐져나가지 않게 */
+    background-color: #fff;
+    padding: 120px 0;
+    border-top: 1px solid #f0f0f0; /* 섹션 구분선으로 신뢰감 추가 */
 }
-
-/* 슬라이더 컨테이너 레이아웃 */
 
 .news-slider {
     position: relative;
     width: 100%;
-    max-width: 1400px; /* 조금 더 넓게 사용 */
+    max-width: 1400px;
     margin: 60px auto 0;
-    padding: 20px 80px 100px !important; /* 좌우 패딩을 늘려 화살표와 카드 간격 확보 */
+    padding: 20px 60px 80px !important; /* 아래 여백 최적화 */
 }
 
-/* 화살표 위치 정교화 */
-.swiper-button-next { right: 20px !important; }
-.swiper-button-prev { left: 20px !important; }
-
-/* 페이지네이션(점)이 필요할 경우를 대비한 하단 여백 */
-.swiper-pagination {
-    bottom: 30px !important;
-}
-
-/* 개별 카드 스타일 */
+/* 개별 아이템: 카드 형태를 버리고 '기사 리스트' 느낌으로 */
 .news-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 280px; /* 카드 높이 통일 */
-  padding: 40px;
-  background: #fcfcfc;
-  border: 1px solid #eee;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  color: #111;
+    display: flex;
+    flex-direction: column;
+    height: 300px; 
+    padding: 35px;
+    background: #fff; /* 배경은 순백색으로 */
+    border: 1px solid #e0e0e0; /* 선은 더 얇고 명확하게 */
+    text-decoration: none;
+    transition: all 0.4s ease;
+    color: #111;
+    position: relative;
 }
 
+/* 호버 시: 과한 그림자 대신 선명한 블루 라인만 */
 .news-item:hover {
-  background: #fff;
-  border-color: #0036c2;
-  box-shadow: 0 20px 40px rgba(0, 54, 194, 0.08);
-  transform: translateY(-10px);
+    border-color: #0036c2;
+    background: #f8faff; /* 아주 연한 파란색 배경 */
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 54, 194, 0.06);
 }
 
-/* 태그 및 날짜 */
+/* 메타 정보 (태그+날짜) */
 .news-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between; /* 양 끝 정렬 */
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0; /* 제목과 메타 정보 분리 */
 }
 
 .news-tag {
-  font-size: 11px;
-  font-weight: 800;
-  color: #0036c2;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 800;
+    color: #0036c2;
+    background: rgba(0, 54, 194, 0.05); /* 태그에 아주 연한 배경 추가 */
+    padding: 4px 8px;
+    letter-spacing: 0.5px;
 }
 
-/* [폰트 최적화] 뉴스 날짜에 Montserrat 적용 */
 .news-date {
     font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
+    color: #aaa;
     font-weight: 500;
-    color: #999;
-    letter-spacing: 0.05em; /* 숫자 간격 미세 조정 */
-}
-/* 제목 (말줄임표 처리) */
-.news-title {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.5;
-  flex-grow: 1;
-  /* 세 줄 이상 넘어갈 경우 말줄임표 */
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
+/* 제목: 더 신뢰감 있게 */
+.news-title {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #1a1a1a;
+    margin: 0;
+    word-break: keep-all; /* 한글 가독성 향상 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 화살표: 클래식하게 */
 .news-arrow {
-  margin-top: 20px;
-  font-size: 24px;
-  color: #ddd;
-  transition: all 0.3s ease;
+    position: absolute;
+    bottom: 35px;
+    right: 35px;
+    font-size: 18px;
+    color: #ccc;
+    transition: 0.3s;
 }
 
 .news-item:hover .news-arrow {
-  color: #0036c2;
-  transform: translateX(5px);
+    color: #0036c2;
+    transform: translateX(5px);
 }
 
-/* Swiper 화살표 커스텀 */
+/* 네비게이션 버튼: 미니멀 & 전문적 */
 .swiper-button-next, .swiper-button-prev {
-  color: #111 !important;
-  width: 40px !important;
-  height: 40px !important;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 50%;
-}
-
-.swiper-button-next:after, .swiper-button-prev:after {
-  font-size: 16px !important;
-  font-weight: bold;
+    color: #111 !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .swiper-button-next:hover, .swiper-button-prev:hover {
-  border-color: #0036c2;
-  color: #0036c2 !important;
+    border-color: #0036c2;
+    color: #0036c2 !important;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 14px !important;
 }
 /* 모바일 대응 */
 @media (max-width: 768px) {
