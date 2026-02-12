@@ -946,15 +946,15 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 .news-arrow {
     position: absolute;
     bottom: 30px;
-    right: 35px;
-    font-size: 18px;
-    color: #ccc;
-    transition: 0.3s;
+    right: 30px;
+    font-size: 16px;
+    color: #b0b0b0;
+    transition: all 0.3s ease;
 }
 
 .news-item:hover .news-arrow {
     color: #0036c2;
-    transform: translateX(5px);
+    transform: translate(2px, -2px);
 }
 
 /* 네비게이션 버튼: 미니멀 & 전문적 */
