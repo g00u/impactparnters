@@ -509,7 +509,7 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 }
 
 .section-label {
-  font-size: 20px;
+  font-size: 40px;
   font-weight: 700;
   letter-spacing: 2px;
   color: #0047ff;
@@ -843,9 +843,21 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
 ====================================================== */
 #news {
     background-color: #fff;
-    padding: 180px 0 100px;
+    padding: 50px 0 100px;
     /* 섹션 상단에 굵은 선으로 신뢰감 전달 */
-    border-top: 4px solid #0036c2;
+    border-top: 1px solid #eaeaea; 
+    position: relative;
+    margin-top: 100px;
+}
+
+#news::before {
+    content: "";
+    position: absolute;
+    top: -1px; /* border-top 바로 위에 겹치게 */
+    left: 80px; /* 제목 시작점과 맞춤 */
+    width: 60px; /* 짧은 포인트 선 */
+    height: 3px;
+    background-color: #0036c2; /* 브랜드 컬러 */
 }
 
 /* 상단 헤더 정렬: 제목은 왼쪽, 화살표는 오른쪽 */
@@ -853,7 +865,7 @@ input, textarea, button, .swiper-button-next, .swiper-button-prev {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    max-width: 1400px;
+    max-width: 2000px;
     margin: 0 auto 30px;
     padding: 0 80px; /* 슬라이더와 동일한 여백 */
 }

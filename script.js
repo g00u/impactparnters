@@ -194,15 +194,35 @@ if (!isTouchDevice && cursorDot && cursorOutline) {
 /* ======================================================
    5. 기타 (부드러운 스크롤 & Swiper)
 ====================================================== */
+/* ======================================================
+   3. Smooth Scroll with Header Offset (앵커 위치 수정)
+====================================================== */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href');
+        
+        // '#'만 있는 링크는 무시
+        if (targetId === '#') return;
+
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
+            e.preventDefault(); // 기본 이동 막기
+
+            // 현재 고정된 헤더의 높이를 동적으로 계산
             const headerHeight = document.querySelector('.header').offsetHeight;
-            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
-            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            
+            // 기본 위치 계산
+            let targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+            //  만약 타겟이 CONTACT라면 70px 정도 더 아래로 내림
+            if (targetId === '#contact') {
+                targetPosition += 70; 
+            }
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
         }
     });
 });
